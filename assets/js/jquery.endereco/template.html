@@ -1,0 +1,48 @@
+<div class="col-sm-6">
+    <div class="form-group">
+        <label class="control-label">CEP</label>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+            <input type="text" class="form-control" data="cep" name="{{cep}}" autocomplete="off">
+            <span class="input-group-btn">
+                <button class="btn btn-primary" type="button">Buscar</button>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-6">
+    <div class="form-group">
+        <label class="control-label">UF / Munic&iacute;pio</label>
+        <app-municipio showuf="true" autostart="false"></app-municipio>
+    </div>
+</div>
+
+<div class="col-sm-6">
+    <div class="form-group">
+        <label class="control-label">Bairro</label>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-font"></i></span>
+            <select class="form-control" data="bairro" name="{{bairro}}" disabled data-width="100%"></select>
+        </div>
+    </div>
+</div>
+
+
+<div class="col-sm-6">
+    <div class="form-group">
+        <label class="control-label">Logradouro</label>
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-font"></i></span>
+            <select class="form-control" data="logradouro" name="{{logradouro}}" disabled data-width="100%"></select>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-6">
+    <div class="form-group">
+        <label class="control-label">N&uacute;mero</label>
+        <input type="text" class="form-control" data="numero" name="{{numero}}">
+    </div>
+</div>
+

@@ -1,0 +1,47 @@
+<style>
+    .carousel-indicators li {
+        background-color: rgba(0,0,0,0.2);
+        box-shadow: 1px 1px 1px rgb(0, 0, 0);
+    }
+    .carousel-indicators .active {
+        background-color: #fff;
+    }
+    .carousel-control.left, .carousel-control.right {
+        background: none;
+    }
+    .carousel-inner img{
+        margin: 0 auto;
+    }
+    .legenda {
+        padding: 5px;
+        color: #fff;
+    }
+    .modal-body {
+        background: #000;
+    }
+</style>
+<div id="{{id}}" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        {{#each gallery as |value key|}}
+        <li data-target="#{{id}}" data-slide-to="{{key}}" class="{{#unless key}} active {{/unless}}"></li>
+        {{/each}}
+    </ol>
+    <div class="carousel-inner">
+        {{#each gallery as |value key|}}
+        <div class="item {{#unless key}} active {{/unless}}">
+            <img src="{{image}}">
+            {{#if legenda}}
+            <div class="legenda text-center">{{legenda}}</div>
+            {{/if}}
+        </div>
+        {{/each}}
+    </div>
+    <a class="left carousel-control" href="#{{id}}" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        <span class="sr-only">Anterior</span>
+    </a>
+    <a class="right carousel-control" href="#{{id}}" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+        <span class="sr-only">Próximo</span>
+    </a>
+</div>

@@ -1,0 +1,190 @@
+'use strict';
+
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD
+        define(['lodash', 'moment', 'jquery', 'toastr', 'datetimepicker'], factory);
+    } else if (typeof exports === 'object') {
+        // Node, CommonJS-like
+        module.exports = factory(require('lodash'), require('moment'), require('jquery'), require('toastr'), require('datetimepicker'));
+    } else {
+        // Browser globals (root is window)
+        root.returnExports = factory(root._, root.moment, root.jQuery, root.toastr);
+    }
+})(this, function (_, moment, $) {
+        $.fn.datetimepickerPeriod = function (options) {
+            var $this = this;
+
+            var $initial = $('<input data-js-datetimepicker-period="initial" class="form-control text-center" autocomplete="off">');
+            var $final = $('<input data-js-datetimepicker-period="final" class="form-control text-center" autocomplete="off">');
+            var $period = options.period !== undefined ? options.period : 'year';
+            var $withTime = options.withTime !== undefined ? options.withTime : false;
+            var $onlyTime = options.onlyTime !== undefined ? options.onlyTime : false;
+            var $showTodayButton = options.showTodayButton !== undefined ? options.showTodayButton : false;
+            var $showClose = options.showClose !== undefined ? options.showClose : false;
+            var $showClear = options.showClear !== undefined ? options.showClear : false;
+            var $messageTodayButton = options.messageTodayButton !== undefined ? options.messageTodayButton : false;
+            var $messageClearButton = options.messageClearButton !== undefined ? options.messageClearButton : false;
+            var $messageCloseButton = options.messageCloseButton !== undefined ? options.messageCloseButton : false;
+            var $setCurrent = options.setCurrent !== undefined ? options.setCurrent : false;
+            var $setFinalDate = options.setFinalDate !== undefined ? options.setFinalDate : true;
+            var $setLimitDateToday = options.setLimitDateToday !== undefined ? options.setLimitDateToday : true;
+            var $messagePeriodo = '';
+            var $customFormat = options.customFormat !== undefined ? options.customFormat : false;
+            var $customMask = options.customMask !== undefined ? options.customMask : false;
+
+            switch ($period) {
+                case 'week':
+                    $messagePeriodo = 'Período maior que uma semana,';
+                    break;
+                case 'month':
+                    $messagePeriodo = 'Período maior que um mês,';
+                    break;
+                default:
+                    $messagePeriodo = 'Período maior que um ano,';
+                    break;
+            }
+
+            $initial.attr('name', options.initialName);
+            $initial.attr('id', options.initialName);
+
+            $final.attr('name', options.finalName);
+            $final.attr('id', options.finalName);
+
+            $initial.attr('placeholder', options.initialPlaceholder !== undefined ? options.initialPlaceholder : '');
+            $final.attr('placeholder', options.finalPlaceholder !== undefined ? options.finalPlaceholder : '');
+
+            if (!$this.hasClass('input-group')) {
+                $this.addClass('input-group');
+            }
+
+            $this.append([
+                $('<span class="input-group-addon"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i></span>'),
+                $initial,
+                $('<span class="input-group-addon">at&eacute;</span>'),
+                $final,
+                $('<span class="input-group-addon"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i></span>')
+            ]);
+
+            var initial = moment().subtract(1, $period).set({hour: 0, minute: 0, second: 0, millisecond: 0});
+
+            if ($customFormat) {
+                var final = moment().set({hour: 0, minute: 0, second: 0, millisecond: 0});
+                $initial.datetimepicker({format: $customFormat, maxDate: final}).mask($customMask || '00/00/0000');
+                $final.datetimepicker({
+                    format: $customFormat,
+                    minDate: initial,
+                    maxDate: final
+                }).mask($customMask || '00/00/0000');
+            } else if ($withTime) {
+                var final = moment().set({hour: 23, minute: 59, second: 59, millisecond: 0});
+                var format = 'DD/MM/YYYY HH:mm:ss';
+                if ($onlyTime) {
+                    format = 'HH:mm:ss';
+                }
+
+                $initial.datetimepicker({format: format, maxDate: final}).mask('00/00/0000 00:00:00');
+                $final.datetimepicker({format: format, minDate: initial, maxDate: final}).mask('00/00/0000 00:00:00');
+            } else {
+                var final = moment().set({hour: 0, minute: 0, second: 0, millisecond: 0});
+                $initial.datetimepicker({format: 'DD/MM/YYYY', maxDate: final}).mask('00/00/0000');
+                $final.datetimepicker({format: 'DD/MM/YYYY', minDate: initial, maxDate: final}).mask('00/00/0000');
+            }
+
+            if (!$setCurrent) {
+                $initial.data('DateTimePicker').date(initial);
+            }
+
+            //Option show today Button
+            $initial.data('DateTimePicker').showTodayButton($showTodayButton);
+            $final.data('DateTimePicker').showTodayButton($showTodayButton);
+
+            $initial.data('DateTimePicker').useCurrent(false);
+            $final.data('DateTimePicker').useCurrent(false);
+
+            //Option show close Button
+            $initial.data('DateTimePicker').showClose($showClose);
+            $final.data('DateTimePicker').showClose($showClose);
+
+            //Option show clear Button
+            $initial.data('DateTimePicker').showClear($showClear);
+            $final.data('DateTimePicker').showClear($showClear);
+
+            //Messages dos tooltips
+            $initial.data('DateTimePicker').tooltips({
+                today: $messageTodayButton !== false ? $messageTodayButton : $initial.data('DateTimePicker').tooltips().today,
+                close: $messageCloseButton !== false ? $messageCloseButton : $initial.data('DateTimePicker').tooltips().close,
+                clear: $messageClearButton !== false ? $messageClearButton : $initial.data('DateTimePicker').tooltips().clear,
+            });
+
+            $final.data('DateTimePicker').tooltips({
+                today: $messageTodayButton !== false ? $messageTodayButton : $final.data('DateTimePicker').tooltips().today,
+                close: $messageCloseButton !== false ? $messageCloseButton : $final.data('DateTimePicker').tooltips().close,
+                clear: $messageClearButton !== false ? $messageClearButton : $final.data('DateTimePicker').tooltips().clear,
+            });
+
+            $initial.on('click', function(){
+                $('a[data-action="today"]').off().on('click', function() {
+                    var date = moment().format('DD/MM/YYYY');
+                    $initial.data('DateTimePicker').date(date);
+                });
+            });
+
+            $initial.on('dp.change', function (e) {
+
+                if (!e.date) {
+                    $final.data('DateTimePicker').minDate(false);
+                    return;
+                }
+
+                var initialDate = moment.isMoment(e.date) ? e.date : moment(e.date);
+
+                $final.data('DateTimePicker').minDate(false);
+                $final.data('DateTimePicker').maxDate(false);
+
+                $final.data('DateTimePicker').minDate(initialDate);
+
+                var limitDate = initialDate.clone().add(1, $period).subtract(1, 'second');
+
+                if (limitDate.isAfter(moment()) && $setLimitDateToday) {
+                    limitDate = moment();
+                }
+
+                if ($withTime) {
+                    var finalDate = $final.data('DateTimePicker').date() ? $final.data('DateTimePicker').date() : moment($final.val(), 'DD/MM/YYYY HH:mm:ss');
+                } else {
+                    var finalDate = $final.data('DateTimePicker').date() ? $final.data('DateTimePicker').date() : moment($final.val(), 'DD/MM/YYYY');
+                }
+
+                if ($period != 'ignore' && (!finalDate._isValid || $final.val() == '') && !$setFinalDate) {
+                    $final.data('DateTimePicker').maxDate(limitDate);
+                    return;
+                }
+
+                if ($period != 'ignore' && !finalDate.clone().subtract(1, $period).isSameOrBefore(initialDate)) {
+                    $final.data('DateTimePicker').date(limitDate);
+                    toastr.warning($messagePeriodo + ' a data final foi ajustada automaticamente.');
+                }
+
+                if (initialDate.isAfter(finalDate)) {
+                    $final.data('DateTimePicker').date(initialDate);
+                }
+
+                if ($period != 'ignore') {
+                    $final.data('DateTimePicker').maxDate(limitDate);
+                }
+            });
+
+            $final.on('dp.change blur', function (e) {
+                var date = $final.data('DateTimePicker').date();
+                var limitDate = $final.data('DateTimePicker').maxDate();
+
+                if (date && limitDate && date.isAfter(limitDate)) {
+                    $final.data('DateTimePicker').date(limitDate);
+                }
+            });
+
+            return this;
+        };
+    }
+);

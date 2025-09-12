@@ -1,0 +1,35 @@
+<table class="table table-striped table-hover">
+    <thead>
+    <tr>
+        <th>UF</th>
+        <th>CEP</th>
+        <th>Munic&iacute;pio</th>
+        <th>Bairro</th>
+        <th>Logradouro</th>
+        <th>A&ccedil;&atilde;o</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each items}}
+    <tr data-cep="{{cep}}"
+        data-uf="{{uf}}"
+        data-idmunicipio="{{id_municipio}}"
+        data-nomemunicipio="{{nome_municipio}}"
+        data-idbairro="{{id_bairro}}"
+        data-nomebairro="{{nome_bairro}}"
+        data-idlogradouro="{{id_logradouro}}"
+        data-nomelogradouro="{{nome_logradouro}}">
+        <td>{{uf}}</td>
+        <td>{{cep}}</td>
+        <td>{{nome_municipio}}</td>
+        <td>{{nome_bairro}}</td>
+        <td>{{nome_logradouro}}</td>
+        <td>
+            <button type="button" class="btn btn-xs btn-primary" title="Selecionar endere&ccedil;o">
+                <span class="glyphicon glyphicon-share-alt"></span>
+            </button>
+        </td>
+    </tr>
+    {{/each}}
+    </tbody>
+</table>

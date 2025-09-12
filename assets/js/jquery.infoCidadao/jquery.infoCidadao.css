@@ -1,0 +1,91 @@
+.sg-cidadao .panel-title img {
+    margin-right: 10px;
+}
+
+.sg-cidadao .panel-title img:first-child {
+    margin-left: 10px;
+}
+
+.sg-cidadao--button__editar.btn-xs {
+    font-size: 10px;
+}
+
+.sg-cidadao--situacao {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.sg-cidadao--imagem {
+    position: relative;
+
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    float: right;
+    height: 175px;
+    width: 175px;
+    padding: 5px;
+}
+
+.sg-cidadao--imagem img {
+    height: 165px;
+    width: 165px;
+    max-height: 165px;
+    max-width: 165px;
+}
+
+.sg-cidadao--imagem .sg-cidadao--sexo {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+
+    background-color: #fff;
+    border-radius: 50%;
+    opacity: 0.8;
+
+    height: 33px;
+    width: 33px;
+
+    z-index: 9;
+}
+
+.sg-cidadao--sexo + .fa-mars,
+.sg-cidadao--sexo + .fa-venus
+{
+    position: absolute;
+    top: 22px;
+    right: 19px;
+    opacity: 1;
+    font-size: 1.5em;
+    font-weight: bold;
+    z-index: 99;
+}
+
+.sg-cidadao--sexo + .fa-mars {
+    color: dodgerblue;
+}
+
+.sg-cidadao--sexo + .fa-venus {
+    color: deeppink;
+}
+
+.sg-cidadao--informacoes {
+    margin-bottom: 0;
+}
+
+.sg-cidadao--informacoes dt {
+    margin-top: 5px;
+}
+
+.sg-cidadao--informacoes dt:first-child {
+    margin-top: 0;
+}
+
+.row > .sg-cidadao--informacoes {
+    margin-top: 5px;
+}
+
+.sg-auto--nao-informado {
+    color: #9e9e9e;
+}

@@ -1,0 +1,58 @@
+<div class="col-sm-6">
+    <label class="control-label col-sm-3 col-lg-4 text-right">CEP:</label>
+    <div class="col-sm-9 col-lg-8">
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                <input type="text" class="form-control" data="cep" name="{{cep}}" autocomplete="off">
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="button">Buscar</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-6">
+    <label class="control-label col-sm-3 col-lg-4 text-right">UF / Munic&iacute;pio:</label>
+    <div class="col-sm-9 col-lg-8">
+        <div class="form-group">
+            <app-municipio showuf="true" autostart="false"></app-municipio>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-6">
+    <label class="control-label col-sm-3 col-lg-4 text-right">Bairro:</label>
+    <div class="col-sm-9 col-lg-8">
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                <select class="form-control" data="bairro" name="{{bairro}}" disabled data-width="100%"></select>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="col-sm-6">
+    <label class="control-label col-sm-3 col-lg-4 text-right">Logradouro:</label>
+    <div class="col-sm-9 col-lg-8">
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-font"></i></span>
+                <select class="form-control" data="logradouro" name="{{logradouro}}" disabled data-width="100%"></select>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-6">
+    <label class="control-label col-sm-3 col-lg-4 text-right">N&uacute;mero:</label>
+    <div class="col-sm-9 col-lg-8">
+        <div class="form-group">
+            <input type="text" class="form-control" data="numero" name="{{numero}}">
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,23 @@
+<div class="input-group">
+    {{#if showuf}}
+    <div class="input-group-btn">
+        <button type="button"
+                class="btn btn-default dropdown-toggle form-control"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false">
+            <span class="tipo_pesquisa">Selecione</span>
+            <span class="caret"></span>
+        </button>
+        <select data="uf" name="{{nameuf}}" style="position: relative; float:left; opacity:0; width: 100px; height:34px; margin-top:-34px; z-index:2; font-size: 15px;">
+            <option value="">Selecione</option>
+            {{#each listUF}}
+            <option value="{{ufSigla}}">{{ufSigla}}</option>
+            {{/each}}
+        </select>
+    </div>
+    {{/if}}
+    <span class="input-group-addon"><i class="fa fa-font"></i></span>
+    <select data="municipio" class="form-control" name="{{namemunicipio}}" data-width="100%" {{#if showuf}} disabled {{/if}}></select>
+</div>
+

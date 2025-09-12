@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery Info Cidadao</title>
+    <link rel="stylesheet" href="../../vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../styles/bootstrap.sigo.css">
+    <style>
+        .sg-cidadao--button__editar.btn-xs {
+            font-size: 10px;
+        }
+
+        .sg-cidadao--situacao {
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .sg-cidadao--imagem {
+            position: relative;
+        }
+
+        .sg-cidadao--imagem img {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            float: right;
+            max-height: 175px;
+            max-width: 175px;
+            padding: 5px;
+        }
+
+        .sg-cidadao--imagem .sg-cidadao--sexo {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+
+            background-color: #eee;
+            border-radius: 50%;
+            opacity: 0.7;
+
+            height: 33px;
+            width: 33px;
+        }
+
+        .sg-cidadao--sexo + .fa-mars,
+        .sg-cidadao--sexo + .fa-venus
+        {
+            position: absolute;
+            top: 22px;
+            right: 19px;
+            opacity: 1;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .sg-cidadao--sexo + .fa-mars {
+            color: dodgerblue;
+        }
+
+        .sg-cidadao--sexo + .fa-venus {
+            color: deeppink;
+        }
+
+        .row .sg-cidadao--informacoes {
+            margin-top: 5px;
+        }
+
+        .sg-cidadao--informacoes {
+            margin-bottom: 0;
+        }
+
+        .sg-cidadao--informacoes dt {
+            margin-top: 5px;
+        }
+
+        .sg-cidadao--informacoes dt:first-child {
+            margin-top: 0;
+        }
+
+        .sg-auto--nao-informado {
+            color: #9e9e9e;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-4 col-lg-offset-4">
+                <div class="panel panel-default sg-panel--info">
+                    <div class="panel-heading">
+                        <button class="btn btn-xs btn-default sg-cidadao--button__editar pull-right">
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                        </button>
+                        <h3 class="panel-title">
+                            Dados do cidadão
+                        </h3>
+                    </div>
+                    <div class="panel-body sg-cidadao">
+                        <h5 class="sg-cidadao--situacao text-center text-danger">(CUSTODIADO / REGIME FECHADO - SENTENCIADO)</h5>
+                        <div class="sg-cidadao--imagem">
+                            <span class="sg-cidadao--sexo"></span>
+                            <i class="fa fa-mars fa-fw" title="Sexo masculino" aria-hidden="true"></i>
+                            <img src="face.jpg">
+                        </div>
+                        <dl class="sg-cidadao--informacoes">
+                            <dt>Nome:</dt>
+                            <dd>Malaco Maloqueico El Bandidon Mui Macho</dd>
+
+                            <dt>Alcunhas:</dt>
+                            <dd>Malaco, Maloqueico e Bandidon</dd>
+
+                            <dt>Nome mãe:</dt>
+                            <dd>Malaco Maloqueico El Bandidon Mui Macho</dd>
+
+                            <dt>Nome pai:</dt>
+                            <dd>Malaco El Bandidon Mui Macho</dd>
+                        </dl>
+                        <div class="row">
+                            <dl class="col-sm-4 sg-cidadao--informacoes">
+                                <dt>RG:</dt>
+                                <dd>44.867.410-5 SSP/SP</dd>
+                            </dl>
+                            <dl class="col-sm-4 sg-cidadao--informacoes">
+                                <dt>CPF:</dt>
+                                <dd>383.153.108-01</dd>
+                            </dl>
+                            <dl class="col-sm-4 sg-cidadao--informacoes">
+                                <dt>RGI:</dt>
+                                <dd><span class="sg-auto--nao-informado">(Não informado)</span></dd>
+                            </dl>
+                        </div>
+                        <div class="row">
+                            <dl class="col-sm-4 sg-cidadao--informacoes">
+                                <dt>Data de nascimento:</dt>
+                                <dd>31/05/1989</dd>
+                            </dl>
+                            <dl class="col-sm-8 sg-cidadao--informacoes">
+                                <dt>Naturalidade:</dt>
+                                <dd>São Paulo - SP</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="sg-cidadao--modal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                                class="sr-only">Close</span></button>
+                        <h4 class="modal-title">Dados do cidadão</h4>
+                    </div>
+                    <div class="modal-body" style="height: 600px">
+                        <iframe id="sg-cidadao--frame" name="sg-cidadao--frame" width="870px" height="580px"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
