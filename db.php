@@ -8,7 +8,7 @@ $cn = sqlsrv_connect($dadosConexao['server'], $dadosConexao['connectionParams'])
 if (!$cn) {
     echo '<hr /><p style="text-align:center">';
     echo 'Falha na conexão ao banco de dados!';
-    echo "<!--\n", print_r(sqlsrv_errors(), true), '-->';
+    echo print_r(sqlsrv_errors(), true);
     echo '</p><hr />';
     sqlsrv_close($cn);
     die();

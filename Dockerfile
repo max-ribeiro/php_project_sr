@@ -28,7 +28,8 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
     && curl https://packages.microsoft.com/config/debian/10/prod.list > /etc/apt/sources.list.d/mssql-release.list
 
 # Instalar ODBC e mssql-tools
-RUN apt-get update && ACCEPT_EULA=Y apt-get install -y msodbcsql17 mssql-tools
+RUN apt-get update && ACCEPT_EULA=Y apt-get install -y msodbcsql17 mssql-tools \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Adicionar mssql-tools ao PATH
 ENV PATH="$PATH:/opt/mssql-tools/bin"
@@ -46,7 +47,11 @@ RUN pecl install sqlsrv-5.10.1 pdo_sqlsrv-5.10.1 \
     && echo "; priority=20\nextension=sqlsrv.so\n" > /usr/local/etc/php/conf.d/sqlsrv.ini \
     && echo "; priority=30\nextension=pdo_sqlsrv.so\n" > /usr/local/etc/php/conf.d/pdo_sqlsrv.ini
 
-# Extensões PHP comuns
-RUN docker-php-ext-install bcmath mbstring exif pcntl gd
+# Configurar e instalar extensões PHP comuns
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install pdo mbstring exif pcntl bcmath gd
+
+# Definir permissões adequadas
+RUN chown -R www-data:www-data /var/www/html
 
 WORKDIR /var/www/html

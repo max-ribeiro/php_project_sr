@@ -33,6 +33,7 @@ services:
     volumes:
       - mssql-data:/var/opt/mssql
       - ./docker/mssql:/var/opt/mssql/scripts
-    command: /bin/bash -c "(/opt/mssql/bin/sqlservr &) && sleep 30 && if [ -d /var/opt/mssql/scripts ]; then for f in /var/opt/mssql/scripts/*.sql; do /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P '@Developerd' -i $$f; done; fi && while true; do sleep 3600; done"
+    restart: always
+    command: /bin/bash -c "(/opt/mssql/bin/sqlservr &) && sleep 30 && if [ -d /var/opt/mssql/scripts ]; then for f in /var/opt/mssql/scripts/*.sql; do /opt/mssql-tools18/bin/sqlcmd -S localhost -U SA -P '@Developerd' -C -i $$f; done; fi && while true; do sleep 3600; done"
 volumes:  
   mssql-data:
