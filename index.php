@@ -24,15 +24,15 @@ $initialState = [
     <meta name="description" content="LOGIN">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <?= tagStyle(_URL_HOME_ . 'assets/vendor/bootstrap/css/bootstrap.min.css') ?>
-    <?= tagStyle(_URL_HOME_ . 'assets/vendor/fontawesome-6.1.1/css/all.css') ?>
-    <?= tagStyle(_URL_HOME_ . 'assets/vendor/toastr/toastr.min.css') ?>
-    <?= tagStyle(_URL_HOME_ . 'assets/vendor/select2/dist/css/select2.min.css') ?>
-    <?= tagStyle(_URL_HOME_ . 'assets/vendor/select2-bootstrap-theme/dist/select2-bootstrap.min.css') ?>
-    <?= tagStyle(_URL_HOME_ . 'assets/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') ?>
-    <?= tagStyle(_URL_HOME_ . 'assets/css/multiselect/multiselect.css') ?>
-    <?= tagStyle(_URL_HOME_ . 'css/complemento-bootstrap.css') ?>
-    <?= tagStyle(_URL_HOME_ . 'css/index.css') ?>
+    <?= tagStyle('/assets/vendor/bootstrap/css/bootstrap.min.css') ?>
+    <?= tagStyle('/assets/vendor/fontawesome-6.1.1/css/all.css') ?>
+    <?= tagStyle('/assets/vendor/toastr/toastr.min.css') ?>
+    <?= tagStyle('/assets/vendor/select2/dist/css/select2.min.css') ?>
+    <?= tagStyle('/assets/vendor/select2-bootstrap-theme/dist/select2-bootstrap.min.css') ?>
+    <?= tagStyle('/assets/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') ?>
+    <?= tagStyle('/assets/css/multiselect/multiselect.css') ?>
+    <?= tagStyle('/css/complemento-bootstrap.css') ?>
+    <?= tagStyle('/css/index.css') ?>
 
 </head>
 <body>
@@ -50,13 +50,13 @@ $initialState = [
                 <form id="loginform" class="form-horizontal" role="form">
                     <div style="margin-bottom: 25px" class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input id="login-username" type="text" class="form-control" name="login"
+                        <input id="login-username" type="text" class="form-control" name="login" required
                                placeholder="LOGIN">
                     </div>
 
                     <div style="margin-bottom: 25px" class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input id="login-password" type="password" class="form-control" name="senha"
+                        <input id="login-password" type="password" class="form-control" name="senha" required
                                placeholder="SENHA">
                     </div>
 
@@ -72,18 +72,18 @@ $initialState = [
 </div>
 
 <script>window.initialState = <?= json_encode($initialState) ?>;</script>
-<?= tagScript(_URL_HOME_ . 'assets/vendor/jquery/jquery.min.js') ?>
-<?= tagScript(_URL_HOME_ . 'assets/vendor/toastr/toastr.min.js') ?>
-<?= tagScript(_URL_HOME_ . 'assets/vendor/moment/moment.min.js') ?>
-<?= tagScript(_URL_HOME_ . 'assets/vendor/moment/locale/pt-br.js') ?>
-<?= tagScript(_URL_HOME_ . 'assets/vendor/bootstrap/js/bootstrap.min.js') ?>
-<?= tagScript(_URL_HOME_ . 'assets/vendor/jquery.blockUI/jquery.blockUI.min.js') ?>
-<?= tagScript(_URL_HOME_ . 'assets/vendor/select2/dist/js/select2.min.js') ?>
-<?= tagScript(_URL_HOME_ . 'assets/vendor/select2/dist/js/i18n/pt-BR.js') ?>
-<?= tagScript(_URL_HOME_ . 'assets/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') ?>
-<?= tagScript(_URL_HOME_ . 'assets/vendor/chartjs/v2-9-4/Chart.min.js') ?>
-<?= tagScript(_URL_HOME_ . 'assets/js/multiselect/multiselect.js') ?>
-<?= tagScript(_URL_HOME_ . 'js/index.js') ?>
+<?= tagScript('/assets/vendor/jquery/jquery.min.js') ?>
+<?= tagScript('/assets/vendor/toastr/toastr.min.js') ?>
+<?= tagScript('/assets/vendor/moment/moment.min.js') ?>
+<?= tagScript('/assets/vendor/moment/locale/pt-br.js') ?>
+<?= tagScript('/assets/vendor/bootstrap/js/bootstrap.min.js') ?>
+<?= tagScript('/assets/vendor/jquery.blockUI/jquery.blockUI.min.js') ?>
+<?= tagScript('/assets/vendor/select2/dist/js/select2.min.js') ?>
+<?= tagScript('/assets/vendor/select2/dist/js/i18n/pt-BR.js') ?>
+<?= tagScript('/assets/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') ?>
+<?= tagScript('/assets/vendor/chartjs/v2-9-4/Chart.min.js') ?>
+<?= tagScript('/assets/js/multiselect/multiselect.js') ?>
+<?= tagScript('/js/index.js') ?>
 
 </body>
 </html>

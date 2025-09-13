@@ -2,7 +2,10 @@
 if (!function_exists('tagStyle')) {
     function tagStyle($href, $tag = true)
     {
-        $href .= '?t=' . filemtime(str_replace(_URL_HOME_, _DIR_HOME_, $href));
+        $file = str_replace(_URL_HOME_, _DIR_HOME_, $href);
+        if (file_exists($file)) {
+            $href .= '?t=' . filemtime($file);
+        }
         return $tag ? "<link type=\"text/css\" href=\"{$href}\" rel=\"stylesheet\">" . PHP_EOL : $href;
     }
 }
@@ -10,7 +13,10 @@ if (!function_exists('tagStyle')) {
 if (!function_exists('tagScript')) {
     function tagScript($src, $tag = true)
     {
-        $src .= '?t=' . filemtime(str_replace(_URL_HOME_, _DIR_HOME_, $src));
+        $file = str_replace(_URL_HOME_, _DIR_HOME_, $src);
+        if (file_exists($file)) {
+            $src .= '?t=' . filemtime($file);
+        }
         return $tag ? "<script type=\"text/javascript\" src=\"{$src}\"></script>" . PHP_EOL : $src;
     }
 }
