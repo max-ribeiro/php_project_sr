@@ -67,164 +67,6 @@ var idGraficos = {
 
 $(document).ready(function () {
 
-    $(document).ajaxStart(function () {
-        $.blockUI({baseZ: 2000});
-    }).ajaxStop(function () {
-        $.unblockUI();
-    });
-
-    $('form#Vitimas select, form#Veiculos select, form#Ocorrencias select, form#CVLI select, form#Drogas select, form#Armas select, form#Envolvidos select')
-        .not('[name="tipo_crime"]').multiselect({
-        placeholder: 'Todos',
-        search: true
-    }).on('change', function (e) {
-        e.preventDefault();
-        consultar($(this));
-    });
-    $('[name="tipo_crime"]').on('change', function (e) {
-        e.preventDefault();
-        consultar($(this));
-    });
-
-    $('.limparSelecao').click(function () {
-        var totalSelecionados = $(this).closest('.panel').find('option[selected]').length;
-        if (totalSelecionados) {
-            $(this).closest('.panel').find('option[selected]').prop('selected', false);
-            $(this).closest('.panel').find('li:not(.optgroup).selected input[type="checkbox"]').prop('checked', false);
-            $(this).closest('.panel').find('li:not(.optgroup).selected').removeClass('selected');
-            $(this).closest('.panel').find('.ms-options-wrap').find('> button:first-child').text('Todos');
-            $(this).closest('.panel').find('select').trigger('change');
-        }
-    });
-
-    // Verifica se o gráfico da aba a ser ativada já foi ativado
-    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-        var target = $(e.target).attr("href");
-        var $form = $(target).find('form');
-        var formId = $form.attr('id');
-        var emptyCanvas = $(target).find('canvas:not(.chartjs-render-monitor)').length;
-
-        switch (formId) {
-            case 'Vitimas':
-                if (emptyCanvas == 0) {
-                    return;
-                }
-                getDataApi($form, gerarGraficosVitimas);
-                break;
-            case 'Veiculos':
-                if (emptyCanvas == 0) {
-                    return;
-                }
-                getDataApi($form, gerarGraficosVeiculos);
-                break;
-            case 'Ocorrencias':
-                if (emptyCanvas == 0) {
-                    return;
-                }
-                getDataApi($form, gerarGraficosOcorrencias);
-                break;
-            case 'CVLI':
-                if (emptyCanvas == 0) {
-                    return;
-                }
-                getDataApi($form, gerarGraficosCVLI);
-                break;
-            case 'Drogas':
-                if (emptyCanvas == 0) {
-                    return;
-                }
-                getDataApi($form, gerarGraficosDrogas);
-                break;
-            case 'Armas':
-                if (emptyCanvas == 0) {
-                    return;
-                }
-                getDataApi($form, gerarGraficosArmas);
-                break;
-            case 'Envolvidos':
-                if (emptyCanvas == 0) {
-                    return;
-                }
-                getDataApi($form, gerarGraficosEnvolvidos);
-                break;
-        }
-    });
-
-    // Prepara os filtros de regiões e municípios
-    var data = {
-        _class: 'estatisticas',
-        _method: 'searchRegioesEMunicipios'
-    };
-
-    $.ajax({
-        url: window.initialState.urlHome + 'api/v1/action.php',
-        dataType: 'json',
-        cache: false,
-        data: data,
-        method: 'POST',
-        success: function (data) {
-            /**
-             * Atualiza os registros de região e município
-             */
-            if (data.regioes) {
-                var $campoRegioes = $('[name="regiao"]');
-                $campoRegioes.empty();
-                $(data.regioes).each(function (i, e) {
-                    var $option = $('<option>').text(e.nm_regiao_municipio).val(e.id_regiao_municipio);
-                    $campoRegioes.append($option);
-                });
-                $campoRegioes.multiselect('reload');
-            }
-            if (data.municipios) {
-                var $campoMunicipios = $('[name="municipio"]');
-                $campoMunicipios.empty();
-                $(data.municipios).each(function (i, e) {
-                    var $option = $('<option>').text(e.nm_municipio).val(e.id_municipio);
-                    $campoMunicipios.append($option);
-                });
-                $campoMunicipios.multiselect('reload');
-            }
-
-            getDataApi($('form#CVLI'), gerarGraficosCVLI);
-        }
-    }).error(function () {
-        toastr.error(
-            'Falha no processamento da requisição. ' +
-            'Entre em contato com o suporte.'
-        );
-    });
-
-    $(document).on("click", ".legenda li", function (e) {
-        e.preventDefault();
-        var data = $(this).data();
-
-        var index = data.index;
-        var ci = graficos[data.chart];
-        var meta = ci.getDatasetMeta(0);
-
-        var exibir = !meta.data[index].hidden;
-        meta.data[index].hidden = exibir;
-
-        if (!exibir) {
-            $(this).find('span').not('.box').removeClass('riscado');
-        } else {
-            $(this).find('span').not('.box').addClass('riscado');
-        }
-
-        ci.update();
-    });
-
-    $(document).on('click', '.exportar', function (e) {
-        e.preventDefault();
-
-        exportarTotalizadores($(this));
-    });
-
-    $(document).on('click', '#exportarDados', function (e) {
-        e.preventDefault();
-
-        exportarDados();
-    });
 });
 
 function consultar(campo) {
@@ -1422,4 +1264,168 @@ function getTextWidth(text, font) {
 
 function getCssStyle(element, prop) {
     return window.getComputedStyle(element, null).getPropertyValue(prop);
+}
+
+/**
+ * Returns API Data
+ */
+function getAPIData() {
+    $(document).ajaxStart(function () {
+        $.blockUI({baseZ: 2000});
+    }).ajaxStop(function () {
+        $.unblockUI();
+    });
+
+    $('form#Vitimas select, form#Veiculos select, form#Ocorrencias select, form#CVLI select, form#Drogas select, form#Armas select, form#Envolvidos select')
+        .not('[name="tipo_crime"]').multiselect({
+        placeholder: 'Todos',
+        search: true
+    }).on('change', function (e) {
+        e.preventDefault();
+        consultar($(this));
+    });
+    $('[name="tipo_crime"]').on('change', function (e) {
+        e.preventDefault();
+        consultar($(this));
+    });
+
+    $('.limparSelecao').click(function () {
+        var totalSelecionados = $(this).closest('.panel').find('option[selected]').length;
+        if (totalSelecionados) {
+            $(this).closest('.panel').find('option[selected]').prop('selected', false);
+            $(this).closest('.panel').find('li:not(.optgroup).selected input[type="checkbox"]').prop('checked', false);
+            $(this).closest('.panel').find('li:not(.optgroup).selected').removeClass('selected');
+            $(this).closest('.panel').find('.ms-options-wrap').find('> button:first-child').text('Todos');
+            $(this).closest('.panel').find('select').trigger('change');
+        }
+    });
+
+    // Verifica se o gráfico da aba a ser ativada já foi ativado
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        var target = $(e.target).attr("href");
+        var $form = $(target).find('form');
+        var formId = $form.attr('id');
+        var emptyCanvas = $(target).find('canvas:not(.chartjs-render-monitor)').length;
+
+        switch (formId) {
+            case 'Vitimas':
+                if (emptyCanvas == 0) {
+                    return;
+                }
+                getDataApi($form, gerarGraficosVitimas);
+                break;
+            case 'Veiculos':
+                if (emptyCanvas == 0) {
+                    return;
+                }
+                getDataApi($form, gerarGraficosVeiculos);
+                break;
+            case 'Ocorrencias':
+                if (emptyCanvas == 0) {
+                    return;
+                }
+                getDataApi($form, gerarGraficosOcorrencias);
+                break;
+            case 'CVLI':
+                if (emptyCanvas == 0) {
+                    return;
+                }
+                getDataApi($form, gerarGraficosCVLI);
+                break;
+            case 'Drogas':
+                if (emptyCanvas == 0) {
+                    return;
+                }
+                getDataApi($form, gerarGraficosDrogas);
+                break;
+            case 'Armas':
+                if (emptyCanvas == 0) {
+                    return;
+                }
+                getDataApi($form, gerarGraficosArmas);
+                break;
+            case 'Envolvidos':
+                if (emptyCanvas == 0) {
+                    return;
+                }
+                getDataApi($form, gerarGraficosEnvolvidos);
+                break;
+        }
+    });
+
+    // Prepara os filtros de regiões e municípios
+    var data = {
+        _class: 'estatisticas',
+        _method: 'searchRegioesEMunicipios'
+    };
+
+    $.ajax({
+        url: '/api/v1/action.php',
+        dataType: 'json',
+        cache: false,
+        data: data,
+        method: 'POST',
+        success: function (data) {
+            /**
+             * Atualiza os registros de região e município
+             */
+            if (data.regioes) {
+                var $campoRegioes = $('[name="regiao"]');
+                $campoRegioes.empty();
+                $(data.regioes).each(function (i, e) {
+                    var $option = $('<option>').text(e.nm_regiao_municipio).val(e.id_regiao_municipio);
+                    $campoRegioes.append($option);
+                });
+                $campoRegioes.multiselect('reload');
+            }
+            if (data.municipios) {
+                var $campoMunicipios = $('[name="municipio"]');
+                $campoMunicipios.empty();
+                $(data.municipios).each(function (i, e) {
+                    var $option = $('<option>').text(e.nm_municipio).val(e.id_municipio);
+                    $campoMunicipios.append($option);
+                });
+                $campoMunicipios.multiselect('reload');
+            }
+
+            getDataApi($('form#CVLI'), gerarGraficosCVLI);
+        }
+    }).error(function () {
+        toastr.error(
+            'Falha no processamento da requisição. ' +
+            'Entre em contato com o suporte.'
+        );
+    });
+
+    $(document).on("click", ".legenda li", function (e) {
+        e.preventDefault();
+        var data = $(this).data();
+
+        var index = data.index;
+        var ci = graficos[data.chart];
+        var meta = ci.getDatasetMeta(0);
+
+        var exibir = !meta.data[index].hidden;
+        meta.data[index].hidden = exibir;
+
+        if (!exibir) {
+            $(this).find('span').not('.box').removeClass('riscado');
+        } else {
+            $(this).find('span').not('.box').addClass('riscado');
+        }
+
+        ci.update();
+    });
+
+    $(document).on('click', '.exportar', function (e) {
+        e.preventDefault();
+
+        exportarTotalizadores($(this));
+    });
+
+    $(document).on('click', '#exportarDados', function (e) {
+        e.preventDefault();
+
+        exportarDados();
+    });
 }
