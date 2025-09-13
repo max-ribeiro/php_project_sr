@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 class ConnectionInfo
 {
     private static $cn = null;
