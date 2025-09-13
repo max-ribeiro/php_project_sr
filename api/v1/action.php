@@ -3,6 +3,7 @@ session_start();
 require_once(__DIR__ . '/../../config.php');
 require_once(_DIR_HOME_ . 'db.php');
 require_once(_DIR_HOME_ . 'api/v1/RestApi.php');
+require_once(_DIR_HOME_ . 'http/Response.php');
 
 // Set JSON content type for all responses
 header('Content-Type: application/json; charset=utf-8');
@@ -17,11 +18,9 @@ function outputJson($data, $statusCode = 200) {
 // Function to handle exceptions as JSON
 function catchException($e) {
     $error = [
-        'error' => true,
         'message' => $e->getMessage(),
-        'code' => $e->getCode() ?: 500
     ];
-    outputJson($error, 500);
+    Response::withJson([$error], $e->getCode() ?: 500);
 }
 
 try {
@@ -89,9 +88,9 @@ try {
     if ($ref->hasMethod('httpResponse')) {
         $refMethod = $ref->getMethod('httpResponse');
         $response = $refMethod->invoke($instance, true, $devMode);
-        outputJson($response);
+        Response::withJson($response, 200);
     } else {
-        outputJson(['data' => $result]);
+        Response::withJson(['data' => $result], 200);
     }
 
 } catch (InvalidArgumentException $e) {
