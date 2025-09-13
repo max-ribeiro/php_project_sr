@@ -23,7 +23,7 @@ services:
 
   mssql:
     image: mcr.microsoft.com/mssql/server:2019-latest
-    container_name: sqlserver2019
+    container_name: polaris2022
     environment:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=@Developerd
