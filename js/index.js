@@ -65,10 +65,6 @@ var idGraficos = {
     },
 };
 
-$(document).ready(function () {
-
-});
-
 function consultar(campo) {
     var $form = campo.closest('form');
     var formId = $form.attr('id');
