@@ -45,3 +45,16 @@ CREATE TABLE cidadao_endereco (
         REFERENCES enderecos(id_endereco)
         ON DELETE CASCADE
 );
+
+-- Novo usuario
+INSERT INTO usuarios (
+    nome,
+	username,
+    email,
+    senha_hash
+) VALUES (
+    'John Doe',
+	'johnDoe',
+    'johndoe@example.com',
+    'e10adc3949ba59abbe56e057f20f883e'  -- hash MD5 da senha 123456
+);

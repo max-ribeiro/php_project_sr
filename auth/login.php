@@ -4,20 +4,22 @@ require_once(_DIR_HOME_ . 'http/Response.php');
 require_once(_DIR_HOME_ . 'auth/JWTAuth.php');
 
 try {
-    if(empty($_REQUEST)) {
+    if (empty($_REQUEST['login']) || empty($_REQUEST['senha'])) {
         Response::withJson([
-            'data' => $_REQUEST['data']
+            'message' => 'credenciais invalidas' 
         ], 400);
     }
-    
-    $login = !empty($_REQUEST['login']) ? filter_var($_REQUEST['login']) : '';
-    $passWord = !empty($_REQUEST['senha']) ? filter_var($_REQUEST['senha']) : '';
 
-    $token = JWTAuth::generateToken($_REQUEST);
+    $token = JWTAuth::authenticate($_REQUEST);
+    if(empty($token)) {
+        Response::withJson([
+            'message' => 'Credenciais invalidas',
+        ], 403); 
+    }
 
     Response::withJson([
         'token' => $token,
-        'user' => $login
+        'user' => $_REQUEST['login']
     ], 200);
     
 } catch (\Exception $e) {

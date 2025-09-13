@@ -14,7 +14,8 @@ class ConnectionInfo
                     'Database'              => 'sigo_dados',
                     'UID'                   => 'dev',
                     'PWD'                   => '@Developerd',
-                    'ReturnDatesAsStrings'  => true
+                    'ReturnDatesAsStrings'  => true,
+                    'CharacterSet'         => 'UTF-8'
                 ],
             ],
         ];

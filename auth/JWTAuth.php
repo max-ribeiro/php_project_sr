@@ -1,11 +1,36 @@
 <?php
 
 require_once(__DIR__ . '/../config.php');
+require_once(_DIR_HOME_ . 'db.php');
+require_once(_DIR_HOME_ . 'api/v1/DatabaseConnector.php');
+require_once(_DIR_HOME_ . 'functions.php');
 
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
 class JWTAuth {
+    protected $db = null;
+
+    public static function authenticate($data) {
+        $connection = ConnectionInfo::getConnection();
+        $db = DatabaseConnector::getInstance();
+
+        $login = filter_var($data['login']);
+        $password = md5(filter_var($data['senha']));
+
+        $sql = "SELECT id_usuario FROM usuarios
+                    WHERE username = ? AND senha_hash = ? ;
+        ";
+
+        $sql = sqlBindParams($sql, compact('login', 'password'));
+
+        $result = $db->query($sql)->fetchArray();
+        if(empty($result)) {
+            return '';
+        }
+    
+        return self::generateToken($data); 
+    }
     /**
      * Gera o token JWT
      *

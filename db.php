@@ -11,7 +11,6 @@ if (!$cn) {
     echo print_r(sqlsrv_errors(), true);
     echo '</p><hr />';
     sqlsrv_close($cn);
-    die();
 } else {
     ConnectionInfo::setConnection($cn);
 }
