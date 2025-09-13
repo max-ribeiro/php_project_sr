@@ -1,5 +1,6 @@
 <?php
-session_start();
+
+require __DIR__ . '/vendor/autoload.php';
 
 /**
  * Define variaveis relacionadas aos paths do sistema
@@ -13,4 +14,11 @@ if (!defined('_URL_HOME_')) {
     }
 
     define('_DIR_CLASSES_', _DIR_HOME_ . 'classes/');
+}
+
+/**
+ * Variaveis JWT
+ */
+if (!defined('_JTW_SECRET_')) {
+    define('_JTW_SECRET_', '7a300784cc499a411f7dd567e9d3e92e');
 }
