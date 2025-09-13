@@ -9,7 +9,7 @@ class ConnectionInfo
     {
         return [
             'default' => [
-                'server' => 'polaris2022',
+                'server' => 'mssql',
                 'connectionParams' => [
                     'Database'              => 'sigo_dados',
                     'UID'                   => 'dev',
