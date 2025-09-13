@@ -51,6 +51,8 @@ RUN pecl install sqlsrv-5.10.1 pdo_sqlsrv-5.10.1 \
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install pdo mbstring exif pcntl bcmath gd
 
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
 # Definir permissões adequadas
 RUN chown -R www-data:www-data /var/www/html
 
