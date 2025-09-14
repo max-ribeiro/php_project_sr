@@ -37,6 +37,12 @@ $(document).ready(function () {
     $('#confirmarSalvar').click(function (e) {
         toastr.clear();
 
+        if (!validateInsertForm()) {
+            return;
+        }
+
+        const token = localStorage.getItem("token");
+
         var data = {
             _class: 'cidadaos',
             _method: 'inserir'
@@ -50,6 +56,9 @@ $(document).ready(function () {
             cache: false,
             data: data,
             method: 'POST',
+            headers: {
+                Authorization: 'Bearer ' + token
+            },
             success: function (data) {
                 if (data.status == 'ok') {
                     toastr.success('Registro inserido com sucesso.');
@@ -268,4 +277,24 @@ function handleDrowpdownSelection() {
 function handleInputMask() {
     $('#telefone').mask('(00) 00000-0000');
     $('#cpf').mask('000.000.000-00', {reverse: true});
+}
+
+function validateInsertForm() {
+    const obrigatorios = ['nome', 'cpf', 'telefone'];
+    let valid = true;
+    let mensagens = [];
+
+    obrigatorios.forEach(function(field) {
+        var valor = $('form#cadastrar [name="' + field + '"]').val().trim();
+        if (!valor) {
+            valid = false;
+            mensagens.push('O campo "' + field + '" é obrigatório.');
+        }
+    });
+    
+    if (!valid) {
+        toastr.error(mensagens.join('<br>'));
+        return false;
+    }
+    return true;
 }

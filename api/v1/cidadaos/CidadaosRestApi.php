@@ -90,22 +90,22 @@ class CidadaosRestApi extends RestApi
     public function inserir()
     {
         $params = $this->getParams();
-
+        
         $dadosMapeados = $this->mapRequestToDatabase($params, 'cidadaos');
         $dadosMapeados = $this->utf8DecodeArray($dadosMapeados);
+
+        unset($dadosMapeados['id_cidadao']);
 
         $camposInsert = join(',', array_keys($dadosMapeados));
         $identificacaoParametros = join(',', array_fill(0, count($dadosMapeados), '?'));
         $sqlParams = array_values($dadosMapeados);
-
+        
         $sql = "
-        INSERT INTO cidadaos
-            ({$camposInsert})
-        VALUES
-            ({$identificacaoParametros})
+            INSERT INTO cidadaos({$camposInsert})
+            VALUES({$identificacaoParametros})
         ";
 
-        $this->db->query($sql, $sqlParams);
+        $result = $this->db->query($sql, $sqlParams);
 
         return $this->setResponse([
             'status' => 'ok',
