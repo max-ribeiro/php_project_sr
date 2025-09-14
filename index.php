@@ -1,4 +1,5 @@
 <?php
+session_start();
 header('Content-Type: text/html; charset=utf-8');
 
 require_once(__DIR__ . '/config.php');
@@ -68,8 +69,15 @@ $initialState = [
                 </form>
             </div>
         </div>
+        <?php 
+            if (isset($_SESSION['error'])) {
+                echo '<div class="alert alert-danger">' . $_SESSION['error'] . '</div>';
+                unset($_SESSION['error']); // limpa para não reaparecer no refresh
+            }
+        ?>
     </div>
 </div>
+
 
 <script>window.initialState = <?= json_encode($initialState) ?>;</script>
 <?= tagScript(_URL_HOME_ . 'assets/vendor/jquery/jquery.min.js') ?>

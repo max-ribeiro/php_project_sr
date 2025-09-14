@@ -20,8 +20,8 @@ $initialState = [
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>CIDAD√O</title>
-    <meta name="description" content="CIDAD√O">
+    <title>CIDAD√ÉO</title>
+    <meta name="description" content="CIDAD√ÉO">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <?= tagStyle(_URL_HOME_ . 'assets/vendor/bootstrap/css/bootstrap.min.css') ?>
@@ -47,7 +47,7 @@ $initialState = [
             <i class="fa fa-plus fa-fw"></i> Novo Registro
         </button>
     </div>
-    <h2 class="sg-header__title">Cidad„os</h2>
+    <h2 class="sg-header__title">Cidad√£os</h2>
 </div>
 
 <div class="container-fluid sg-content">
@@ -55,7 +55,7 @@ $initialState = [
     <div id="resultados" class="col-lg-9" style="display: none;">
         <div class="panel panel-info carregando">
             <div class="panel-body bg-info text-center">
-                <h2><i class="fa fa-spinner fa-pulse fa-fw"></i> Carregando informaÁıes</h2>
+                <h2><i class="fa fa-spinner fa-pulse fa-fw"></i> Carregando informa√ß√µes</h2>
             </div>
         </div>
         <div class="itens">
@@ -89,7 +89,7 @@ $initialState = [
 
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label>Cidad„o:</label>
+                            <label>Cidad√£o:</label>
                             <div class="input-group">
                                 <div class="input-group-btn">
                                     <button type="button" class="btn btn-default dropdown-toggle"
@@ -101,7 +101,7 @@ $initialState = [
                                         data-js-campo="cidadao" class="dropdown-menu">
                                         <li><a href="#" data-value="nome">Nome</a></li>
                                         <li><a href="#" data-value="cpf">CPF</a></li>
-                                        <li><a href="#" data-value="matricula">MatrÌcula</a></li>
+                                        <li><a href="#" data-value="matricula">Matr√≠cula</a></li>
                                     </ul>
                                 </div>
                                 <span class="input-group-addon"><i class="fa fa-search"></i></span>
@@ -132,7 +132,7 @@ $initialState = [
                 </div>
                 <div id="paginacaoResultado" class="col-lg-12 text-center"></div>
                 <div id="paginacaoDetalhes" class="col-lg-12 text-center mb-2" style="font-size: 10px;">
-                    *S„o listados no m·ximo <?= $rowsPerPage ?> registros por p·gina
+                    *S√£o listados no m√°ximo <?= $rowsPerPage ?> registros por p√°gina
                 </div>
             </div>
 
@@ -145,7 +145,7 @@ $initialState = [
         <div class="modal-content">
             <div class="modal-header">
                 <button class="close" type="button" data-dismiss="modal">
-                    <span>◊</span>
+                    <span>+</span>
                 </button>
                 <h4 class="modal-title">Novo registro</h4>
             </div>
