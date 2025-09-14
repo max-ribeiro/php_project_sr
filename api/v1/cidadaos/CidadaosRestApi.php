@@ -23,11 +23,21 @@ class CidadaosRestApi extends RestApi
             ],
         ],
     ];
+    private $pageSize = 15;
 
     public function consultar()
     {
         $params = $this->getParams();
         $where = [" WHERE 1 = 1"];//retornar todos caso não exista filtro
+        $pagination = "";
+
+        if(!empty($params['pageNumber'])) {
+            $offset = $params['pageNumber'] * 15;
+            $pagination = "OFFSET {$offset} ROWS
+                FETCH NEXT {$this->pageSize} ROWS ONLY
+            ";
+            
+        }
 
         // define o parametro de consulda com base do tipo
         if(!empty($params['tpBusca']) && !empty($params['cidadao'])) {
@@ -49,13 +59,14 @@ class CidadaosRestApi extends RestApi
         $where = join("\n", $where);
 
         $sql = "
-        SET NOCOUNT ON;
-                    
-        SELECT *
-        FROM cidadaos WITH(NOLOCK)
-        {$where}
+            SET NOCOUNT ON;                
+            SELECT *
+            FROM cidadaos WITH(NOLOCK)
+            {$where}
+            ORDER BY id_cidadao
+            {$pagination}
         ";
-
+        
         $items = $this->db->query($sql)->fetchAllArray();
 
         foreach ($items as $item) {

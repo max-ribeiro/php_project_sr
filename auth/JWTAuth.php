@@ -71,7 +71,7 @@ class JWTAuth {
             return [
                 'valid' => false,
                 'error' => 'Token expirado',
-                'code' => 403 
+                'code' => 401 
             ];
         } catch (\Exception $e) {
             return [
