@@ -5,6 +5,7 @@ require_once(_DIR_HOME_ . 'db.php');
 require_once(_DIR_HOME_ . 'api/v1/DatabaseConnector.php');
 require_once(_DIR_HOME_ . 'functions.php');
 
+use Firebase\JWT\ExpiredException;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
@@ -60,11 +61,24 @@ class JWTAuth {
     public static function validate($jwt) {
         $key = _JTW_SECRET_;
 
-        // Permite um leeway de 60 segundos para diferenças de horário
-        JWT::$leeway = 60;
-
-        // Decodifica o token e retorna o payload como array
-        $decoded = JWT::decode($jwt, new Key($key, 'HS256'));
-        return (array) $decoded;
+        try {
+            $decoded = JWT::decode($jwt, new Key($key, 'HS256'));
+            return [
+                'valid' => true,
+                'payload' => $decoded
+            ];
+        } catch (ExpiredException $e) {
+            return [
+                'valid' => false,
+                'error' => 'Token expirado',
+                'code' => 403 
+            ];
+        } catch (\Exception $e) {
+            return [
+                'valid' => false,
+                'error' => 'Token inválido',
+                'code' => 500 
+            ];
+        }
     }
 }

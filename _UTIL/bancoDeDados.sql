@@ -58,3 +58,16 @@ INSERT INTO usuarios (
     'johndoe@example.com',
     'e10adc3949ba59abbe56e057f20f883e'  -- hash MD5 da senha 123456
 );
+
+-- cidadaos para teste
+INSERT INTO cidadaos (nome, cpf, telefone, status) VALUES
+('Ana Souza',        '123.456.789-00', '(11) 91234-5678', 1),
+('Bruno Lima',       '987.654.321-00', '(21) 99876-5432', 1),
+('Carla Mendes',     '456.789.123-00', '(31) 93456-7890', 0),
+('Diego Oliveira',   '321.654.987-00', '(41) 98765-4321', 1),
+('Eduarda Castro',   '741.852.963-00', '(51) 92345-6789', 1),
+('Felipe Martins',   '159.753.486-00', '(61) 93456-1234', 0),
+('Gabriela Torres',  '258.369.147-00', '(71) 91234-9876', 1),
+('Henrique Alves',   '369.258.741-00', '(81) 95678-4321', 1),
+('Isabela Ferreira', '852.741.963-00', '(91) 97890-1234', 0),
+('João Pereira',     '963.852.741-00', '(85) 91234-5678', 1);

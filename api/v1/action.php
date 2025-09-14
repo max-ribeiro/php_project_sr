@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once(__DIR__ . '/../../config.php');
+require_once(_DIR_HOME_. 'middlewares/jwtMiddleware.php');
 require_once(_DIR_HOME_ . 'db.php');
 require_once(_DIR_HOME_ . 'api/v1/RestApi.php');
 require_once(_DIR_HOME_ . 'http/Response.php');

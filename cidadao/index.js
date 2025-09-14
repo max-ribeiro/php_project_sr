@@ -83,6 +83,7 @@ function consultar(pagina) {
     $.extend(data, serializeObject($('form#form')));
 
     insereParametrosBusca();
+    const token = localStorage.getItem("token");
 
     $.ajax({
         url: window.initialState.urlHome + 'api/v1/action.php',
@@ -90,6 +91,9 @@ function consultar(pagina) {
         cache: false,
         data: data,
         method: 'POST',
+        headers: {
+            Authorization: 'Bearer ' + token
+        },
         success: function (data) {
             if (data.items.length > 0) {
                 $('[data-js-return]').removeClass('hide');
