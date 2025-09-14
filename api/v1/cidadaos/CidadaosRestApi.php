@@ -27,7 +27,12 @@ class CidadaosRestApi extends RestApi
     public function consultar()
     {
         $params = $this->getParams();
-        $where = [" WHERE id_cidadao = 222222881 "];
+        $where = [" WHERE 1 = 1"];//retornar todos caso não exista filtro
+
+        // define o parametro de consulda com base do tipo
+        if(!empty($params['tpBusca']) && !empty($params['cidadao'])) {
+            $params[$params['tpBusca']] = $params['cidadao'];
+        }
 
         if (!empty($params['nome'])) {
             $where[] = " AND nome = '{$params['nome']}' ";
@@ -47,7 +52,7 @@ class CidadaosRestApi extends RestApi
         SET NOCOUNT ON;
                     
         SELECT *
-        FROM cidadao WITH(NOLOCK)
+        FROM cidadaos WITH(NOLOCK)
         {$where}
         ";
 
@@ -135,7 +140,7 @@ class CidadaosRestApi extends RestApi
 
         $sql = "
         DELETE c
-        FROM cidadao cid WITH(NOLOCK)
+        FROM cidadaos cid WITH(NOLOCK)
         WHERE cid.id_cidadao = ?
         ";
         $this->db->query($sql, $id_cidadao);

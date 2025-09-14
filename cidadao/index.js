@@ -244,6 +244,10 @@ function insereParametrosBusca() {
         $elParams.append(dt).append(dd);
     });
 }
+
+/**
+ * trata da mudança de valor do select que filtra cidadão
+ */
 function handleDrowpdownSelection() {
     $(document).on('click', '.dropdown-menu li a', function (e) {
     e.preventDefault();

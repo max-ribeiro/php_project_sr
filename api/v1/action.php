@@ -21,7 +21,7 @@ function catchException($e) {
     $error = [
         'message' => $e->getMessage() ?: 'Erro ao processar requisição',
     ];
-    Response::withJson([$error], $e->getCode() ?: 500);
+    Response::withJson($error, $e->getCode() ?: 500);
 }
 
 try {
