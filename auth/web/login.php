@@ -51,6 +51,7 @@ try {
     $_SESSION['user'] = $_REQUEST['login'];
     $_SESSION['tentativas'] = 0;
     $_SESSION['primeiraTentativa'] = time();
+    $_SESSION['token'] = $token;
 
     header('Location:' . _URL_HOME_ . 'cidadao/index.php');
     exit;

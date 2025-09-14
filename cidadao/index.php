@@ -1,9 +1,11 @@
 <?php
+session_start();
 header('Content-Type: text/html; charset=utf-8');
 
 require_once(__DIR__ . '/../config.php');
 require_once(_DIR_HOME_ . 'db.php');
 require_once(_DIR_HOME_ . 'functions.php');
+require_once(_DIR_HOME_ . 'handlers/sessionCheck.php');
 require_once(_DIR_HOME_ . 'classes/ConnectionInfo.php');
 require_once(_DIR_HOME_ . 'api/v1/DatabaseConnector.php');
 
@@ -188,6 +190,12 @@ $initialState = [
     </div>
 </div>
 
+<script>
+    const token = "<?= $_SESSION['token'] ?>";
+    if(token) {
+        localStorage.setItem("token", token);
+    }
+</script>
 <script>window.initialState = <?= json_encode($initialState) ?>;</script>
 <script src="<?= _URL_HOME_ ?>assets/vendor/jquery/jquery.min.js"></script>
 <script src="<?= _URL_HOME_ ?>assets/vendor/jquery-ui/jquery-ui.min.js"></script>

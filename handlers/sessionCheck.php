@@ -1,7 +1,7 @@
 <?php
-
-if (!isset($_SESSION['user_id'])) {
+session_start();
+if (!isset($_SESSION['user'])) {
     // Redirect to login page
-    header('Location: index.php');
+    header('Location: /');
     exit; // Always exit after redirect
 }
