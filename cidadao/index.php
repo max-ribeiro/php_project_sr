@@ -103,7 +103,7 @@ $initialState = [
                                         data-js-campo="cidadao" class="dropdown-menu">
                                         <li><a href="#" data-value="nome">Nome</a></li>
                                         <li><a href="#" data-value="cpf">CPF</a></li>
-                                        <li><a href="#" data-value="matricula">Matrícula</a></li>
+                                        <li><a href="#" data-value="telefone">Telefone</a></li>
                                     </ul>
                                 </div>
                                 <span class="input-group-addon"><i class="fa fa-search"></i></span>
@@ -142,6 +142,7 @@ $initialState = [
     </div>
 </div>
 
+<!-- modal de criação de registro -->
 <div class="modal fade" id="modal-novo-registro">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
@@ -178,59 +179,58 @@ $initialState = [
                             <input class="form-control required" type="text" id="telefone" name="telefone">
                         </div>
                     </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="text-right">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        Cancelar
+                    </button>
+                    <button type="button" class="btn btn-success" id="confirmarSalvar">
+                        <i class="fa fa-check"></i> <span>Salvar</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-                    <hr />
+<!-- modal de edição de registro -->
+<div class="modal fade" id="modal-editar-registro">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header clearfix">
+                <h4 class="modal-title pull-left">Editar registro</h4>
+                <button type="button" class="btn btn-danger btn-xs pull-right cidadao-edit-btn" id="btn-remove-cidadao">
+                    <i class="fa fa-trash fa-fw"></i>
+                </button>
+            </div>
 
+            <div class="modal-body">
+                <form id="editar" class="row">
                     <div class="col-md-12">
-                        <legend><h5>Endereço</h5></legend>
+                        <legend><h5>Dados Pessoais</h5></legend>
+                    </div>
+                    <input type="hidden" id="id_cidadao" name="id_cidadao" value="">
+                    
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="nome">Nome:</label>
+                            <input class="form-control required" type="text" id="nome" name="nome">
+                        </div>
                     </div>
                     
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="logradouro">Logradouro:</label>
-                            <input class="form-control required" type="text" id="logradouro" name="logradouro">
+                            <label for="cpf">CPF:</label>
+                            <input class="form-control required" type="text" id="cpf" name="cpf" disabled>
                         </div>
                     </div>
                     
-                    <div class="col-md-2">
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <label for="numero">Número:</label>
-                            <input class="form-control required" type="text" id="numero" name="numero">
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="bairro">Bairro:</label>
-                            <input class="form-control required" type="text" id="bairro" name="bairro">
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="cidade">Cidade:</label>
-                            <input class="form-control required" type="text" id="cidade" name="cidade">
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <label for="uf">UF:</label>
-                            <input class="form-control required" type="text" id="uf" name="uf" maxlength="2">
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <label for="cep">CEP:</label>
-                            <input class="form-control required" type="text" id="cep" name="cep">
-                        </div>
-                    </div>
-
-                    <div class="col-md-2 d-flex align-items-center">
-                        <div class="form-check mt-3">
-                            <input class="form-check-input" type="checkbox" id="principal" name="principal" value="1">
-                            <label class="form-check-label" for="principal">Principal</label>
+                            <label for="telefone">Telefone:</label>
+                            <input class="form-control required" type="text" id="telefone" name="telefone">
                         </div>
                     </div>
                 </form>
@@ -240,7 +240,7 @@ $initialState = [
                     <button type="button" class="btn btn-default" data-dismiss="modal">
                         Cancelar
                     </button>
-                    <button type="button" class="btn btn-success" id="confirmarSalvar">
+                    <button type="button" class="btn btn-success" id="corfirmarAtualizar">
                         <i class="fa fa-check"></i> <span>Salvar</span>
                     </button>
                 </div>

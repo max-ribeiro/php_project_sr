@@ -77,7 +77,7 @@ class CidadaosRestApi extends RestApi
         $sqlParams = array_values($dadosMapeados);
 
         $sql = "
-        INSERT INTO cidadaos
+        INSERT INTO enderecos
             ({$camposInsert})
         VALUES
             ({$identificacaoParametros})

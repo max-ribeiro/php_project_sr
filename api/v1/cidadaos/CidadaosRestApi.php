@@ -66,6 +66,9 @@ class CidadaosRestApi extends RestApi
 
         $where = join("\n", $where);
 
+        /**
+         * @todo dependendo da massa de dados, retornar o count em query separada
+         */
         $sql = "
             SET NOCOUNT ON;                
             SELECT *, COUNT(*) OVER() AS total_registros
@@ -77,15 +80,16 @@ class CidadaosRestApi extends RestApi
 
         $items = $this->db->query($sql)->fetchAllArray();
         
-        $totalRegistros = 0;
-        foreach ($items as $item) {
-            $totalRegistros = $item['total_registros'];
-            if ($item['status'] = 1) {
+        $items = array_map(function($item) {
+            if ('1' == $item['status']) {
                 $item['nome_status'] = 'Ativo';
             } else {
                 $item['nome_status'] = 'Inativo';
             }
-        }
+            return $item;
+        }, $items);
+
+        $totalRegistros = !empty($items) ? $items[0]['total_registros'] : 0;
 
         $response = [
             'total' => $totalRegistros,
@@ -130,6 +134,7 @@ class CidadaosRestApi extends RestApi
         $dadosMapeados = $this->utf8DecodeArray($dadosMapeados);
 
         $id_cidadao = $dadosMapeados['id_cidadao'];
+        unset($dadosMapeados['id_cidadao']);
 
         $camposUpdate = join(' = ?,', array_keys($dadosMapeados)) . ' = ?';
         $valoresUpdate = array_values($dadosMapeados);
@@ -138,7 +143,7 @@ class CidadaosRestApi extends RestApi
         $sql = "
         UPDATE cidadaos SET
             {$camposUpdate}
-        WHERE id_cidadao = ?
+            WHERE id_cidadao = ?
         ";
 
         $paramsSql = $valoresUpdate;
@@ -158,13 +163,15 @@ class CidadaosRestApi extends RestApi
         $dadosMapeados = $this->utf8DecodeArray($dadosMapeados);
 
         $id_cidadao = $dadosMapeados['id_cidadao'];
-
+        
         $sql = "
-        DELETE c
-        FROM cidadaos cid WITH(NOLOCK)
-        WHERE cid.id_cidadao = ?
+        DELETE FROM cidadaos
+        WHERE id_cidadao = ?
         ";
-        $this->db->query($sql, $id_cidadao);
+        var_dump($id_cidadao);
+        die();
+
+        $this->db->query($sql,[0 => $id_cidadao]);
 
         return $this->setResponse([
             'status' => 'ok',

@@ -67,7 +67,7 @@ class DatabaseConnector
             $msg = 'Erro SQL não especificado.';
 
             if ($errors && is_array($errors)) {
-                $msg = "Erro ao tratar informações no banco";
+                $msg = $errors[0]['message'];
             }
 
             phpLog($errors);

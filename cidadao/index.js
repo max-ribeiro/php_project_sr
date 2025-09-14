@@ -80,6 +80,52 @@ $(document).ready(function () {
             );
         });
     });
+
+
+    $('#corfirmarAtualizar').click(function (e) {
+        toastr.clear();
+
+        const token = localStorage.getItem("token");
+
+        var data = {
+            _class: 'cidadaos',
+            _method: 'editar'
+        };
+
+        $.extend(data, serializeObject($('form#editar')));
+
+        $.ajax({
+            url: window.initialState.urlHome + 'api/v1/action.php',
+            dataType: 'json',
+            cache: false,
+            data: data,
+            method: 'POST',
+            headers: {
+                Authorization: 'Bearer ' + token
+            },
+            success: function (data) {
+                if (data.status == 'ok') {
+                    toastr.success('Registro atualizado com sucesso.');
+                    $('#modal-editar-registro').modal('hide');
+                    location.reload();
+                } else {
+                    toastr.error(
+                        data.message ||
+                        'Falha no processamento da requisição. ' +
+                        'Entre em contato com o suporte.'
+                    );
+                    $("#confirmarAtualizar").prop('disabled', false);
+                }
+            }
+        }).done(function (data) {
+        }).error(function () {
+            toastr.error(
+                'Falha no processamento da requisição. ' +
+                'Entre em contato com o suporte.'
+            );
+        });
+    });
+
     handleDrowpdownSelection();
     handleInputMask();
 });
@@ -183,9 +229,20 @@ function processarResultados(data) {
         var $btnEditar = $('<button type="button" />');
         $btnEditar.addClass('btn btn-warning btn-xs cidadao-edit-btn');
         $btnEditar.html('<i class="fa fa-edit fa-fw"></i>');
-        $btnEditar.data($item);
+        $btnEditar.data('item', $item); // armazena no botão
+
         $btnEditar.click(function () {
-            // TO DO
+            var $modal = $('#modal-editar-registro');
+            $modal.modal({backdrop: 'static'});
+
+            // recupera os dados específicos desse botão
+            var item = $(this).data('item');
+
+            const {id_cidadao, cpf, nome, telefone, status} = item;
+            $modal.find('#id_cidadao').val(id_cidadao);
+            $modal.find('#nome').val(nome);
+            $modal.find('#cpf').val(cpf);
+            $modal.find('#telefone').val(telefone);
         });
 
         $tr.append($td.clone().html($item.nome));
@@ -300,4 +357,8 @@ function validateInsertForm() {
         return false;
     }
     return true;
+}
+
+function handleCidadaoEdit(cidadaoRecord) {
+    console.dir(cidadaoRecord);
 }
