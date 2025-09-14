@@ -1,11 +1,12 @@
 CREATE TABLE cidadaos (
-	id_cidadao NUMERIC (9,0) IDENTITY NOT NULL,
-	nome VARCHAR(200) NOT NULL,
-	cpf VARCHAR(14) NOT NULL,
-	telefone VARCHAR(15),
-	status BIT DEFAULT 0,
-	CONSTRAINT [PK_dbo.cidadaos] PRIMARY KEY (id_cidadao)
-)
+    id_cidadao NUMERIC (9,0) IDENTITY NOT NULL,
+    nome VARCHAR(200) NOT NULL,
+    cpf VARCHAR(14) NOT NULL,
+    telefone VARCHAR(15),
+    status BIT DEFAULT 0,
+    CONSTRAINT PK_dbo_cidadaos PRIMARY KEY (id_cidadao),
+    CONSTRAINT UQ_cidadaos_cpf UNIQUE (cpf) -- garante CPF único
+);
 
 CREATE TABLE usuarios (
     id_usuario NUMERIC(9,0) IDENTITY NOT NULL,
@@ -30,20 +31,6 @@ CREATE TABLE enderecos (
     data_criacao DATETIME DEFAULT GETDATE(),
     data_atualizacao DATETIME NULL,
     CONSTRAINT PK_enderecos PRIMARY KEY (id_endereco)
-);
-
--- Um usuario pode ter varios endeçõs e um endereço pode pertencer a mais de um funcionario (em caso de cadastros de membro da mesma familia| moram na mesma casa)
-CREATE TABLE cidadao_endereco (
-    id_cidadao NUMERIC(9,0) NOT NULL,
-    id_endereco NUMERIC(9,0) NOT NULL,
-    data_criacao DATETIME DEFAULT GETDATE(),
-    CONSTRAINT PK_cidadao_endereco PRIMARY KEY (id_cidadao, id_endereco),
-    CONSTRAINT FK_cidadao_endereco_cidadao FOREIGN KEY (id_cidadao)
-        REFERENCES cidadaos(id_cidadao)
-        ON DELETE CASCADE,
-    CONSTRAINT FK_cidadao_endereco_endereco FOREIGN KEY (id_endereco)
-        REFERENCES enderecos(id_endereco)
-        ON DELETE CASCADE
 );
 
 -- Novo usuario
