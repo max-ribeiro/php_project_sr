@@ -28,64 +28,47 @@ class CidadaosRestApi extends RestApi
     public function consultar()
     {
         $params = $this->getParams();
-        $where = [" WHERE 1 = 1"];//retornar todos caso não exista filtro
+        $where = [" WHERE 1 = 1"];
         $pagination = "";
+        $orderBy = "ORDER BY id_cidadao ASC";
 
         if(!empty($params['pageNumber'])) {
-            $offset = $params['pageNumber'] * 15;
-            $pagination = "OFFSET {$offset} ROWS
-                FETCH NEXT {$this->pageSize} ROWS ONLY
-            ";            
+            $offset = ($params['pageNumber'] - 1) * $this->pageSize;
+            $pagination = "OFFSET {$offset} ROWS FETCH NEXT {$this->pageSize} ROWS ONLY";
         }
 
-        // total de registros sem paginação
-        $sqlTotal = "
-            SELECT COUNT(*) AS total
-            FROM cidadaos WITH(NOLOCK)
-        ";
-
-        $totalResult = $this->db->query($sqlTotal)->fetchArray();
-        $total = $totalResult['total'] ?? 0;
-
-        // define o parametro de consulda com base do tipo
+        // define o parametro de consulta com base no tipo
         if(!empty($params['tpBusca']) && !empty($params['cidadao'])) {
             $params[$params['tpBusca']] = $params['cidadao'];
         }
 
         if (!empty($params['nome'])) {
-            $where[] = " AND nome LIKE '%{$params['nome']}%' ";
+            $where[] = " AND nome LIKE '%{$params['nome']}%' COLLATE Latin1_General_CI_AI";
         }
         
         if (!empty($params['cpf'])) {
-            $where[] = " AND cpf = '{$params['cpf']}' ";
+            $where[] = " AND cpf LIKE '%{$params['cpf']}%' ";
         }
         
         if (!empty($params['telefone'])) {
-            $where[] = " AND telefone = {$params['telefone']} ";
+            $where[] = " AND telefone LIKE '%{$params['telefone']}%' ";
         }
 
         $where = join("\n", $where);
 
-        /**
-         * @todo dependendo da massa de dados, retornar o count em query separada
-         */
         $sql = "
             SET NOCOUNT ON;                
             SELECT *, COUNT(*) OVER() AS total_registros
             FROM cidadaos WITH(NOLOCK)
             {$where}
-            ORDER BY id_cidadao
+            {$orderBy}
             {$pagination}
         ";
 
         $items = $this->db->query($sql)->fetchAllArray();
         
         $items = array_map(function($item) {
-            if ('1' == $item['status']) {
-                $item['nome_status'] = 'Ativo';
-            } else {
-                $item['nome_status'] = 'Inativo';
-            }
+            $item['nome_status'] = ($item['status'] == 1) ? 'Ativo' : 'Inativo';
             return $item;
         }, $items);
 
@@ -100,6 +83,7 @@ class CidadaosRestApi extends RestApi
 
         return $this;
     }
+
 
     public function inserir()
     {

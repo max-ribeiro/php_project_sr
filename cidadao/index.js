@@ -165,7 +165,7 @@ function consultar(pagina) {
                             processarResultados(data.items);
 
                             if (data.hasOwnProperty('total')  && data.total > 0) {
-                                const totalPaginas = Math.ceil(data.total/15 - 1);
+                                const totalPaginas = Math.ceil(data.total/15);
                                 habilitarPaginacaoRegistros(totalPaginas, data.pagina);
                             }
                         })
