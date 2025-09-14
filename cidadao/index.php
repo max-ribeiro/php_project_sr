@@ -153,25 +153,84 @@ $initialState = [
             </div>
             <div class="modal-body">
                 <form id="cadastrar" class="row">
-
+                    <div class="col-md-12">
+                        <legend><h5>Dados Pessoais</h5></legend>
+                    </div>
                     <input type="hidden" id="id_cidadao" name="id_cidadao" value="">
-
+                    
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label>Nome:</label>
+                            <label for="nome">Nome:</label>
                             <input class="form-control required" type="text" id="nome" name="nome">
                         </div>
                     </div>
+                    
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label>CPF:</label>
+                            <label for="cpf">CPF:</label>
                             <input class="form-control required" type="text" id="cpf" name="cpf">
                         </div>
                     </div>
+                    
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label>Telefone:</label>
+                            <label for="telefone">Telefone:</label>
                             <input class="form-control required" type="text" id="telefone" name="telefone">
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div class="col-md-12">
+                        <legend><h5>Endereço</h5></legend>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="logradouro">Logradouro:</label>
+                            <input class="form-control required" type="text" id="logradouro" name="logradouro">
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="numero">Número:</label>
+                            <input class="form-control required" type="text" id="numero" name="numero">
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="bairro">Bairro:</label>
+                            <input class="form-control required" type="text" id="bairro" name="bairro">
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="cidade">Cidade:</label>
+                            <input class="form-control required" type="text" id="cidade" name="cidade">
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="uf">UF:</label>
+                            <input class="form-control required" type="text" id="uf" name="uf" maxlength="2">
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="cep">CEP:</label>
+                            <input class="form-control required" type="text" id="cep" name="cep">
+                        </div>
+                    </div>
+
+                    <div class="col-md-2 d-flex align-items-center">
+                        <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" id="principal" name="principal" value="1">
+                            <label class="form-check-label" for="principal">Principal</label>
                         </div>
                     </div>
                 </form>

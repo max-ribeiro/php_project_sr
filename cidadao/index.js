@@ -118,7 +118,10 @@ function consultar(pagina) {
                             $('#resultados .carregando').slideUp();
                             processarResultados(data.items);
 
-                            habilitarPaginacaoRegistros(data.total, data.pagina);
+                            if (data.hasOwnProperty('total')  && data.total > 0) {
+                                const totalPaginas = Math.ceil(data.total/15 - 1);
+                                habilitarPaginacaoRegistros(totalPaginas, data.pagina);
+                            }
                         })
                     });
             } else {
@@ -188,7 +191,7 @@ function processarResultados(data) {
         $tr.append($td.clone().html($item.nome));
         $tr.append($td.clone().html($item.cpf));
         $tr.append($td.clone().html($item.telefone));
-        $tr.append($td.clone().html('1' === $item.status ? 'ativo' : 'inativo'));
+        $tr.append($td.clone().html($item.nome_status));
         $tr.append($td.clone().append([$btnEditar]));
 
         $('#resultados .itens tbody').append($tr);

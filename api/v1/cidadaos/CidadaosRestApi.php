@@ -35,9 +35,17 @@ class CidadaosRestApi extends RestApi
             $offset = $params['pageNumber'] * 15;
             $pagination = "OFFSET {$offset} ROWS
                 FETCH NEXT {$this->pageSize} ROWS ONLY
-            ";
-            
+            ";            
         }
+
+        // total de registros sem paginação
+        $sqlTotal = "
+            SELECT COUNT(*) AS total
+            FROM cidadaos WITH(NOLOCK)
+        ";
+
+        $totalResult = $this->db->query($sqlTotal)->fetchArray();
+        $total = $totalResult['total'] ?? 0;
 
         // define o parametro de consulda com base do tipo
         if(!empty($params['tpBusca']) && !empty($params['cidadao'])) {
@@ -60,7 +68,7 @@ class CidadaosRestApi extends RestApi
 
         $sql = "
             SET NOCOUNT ON;                
-            SELECT *
+            SELECT *, COUNT(*) OVER() AS total_registros
             FROM cidadaos WITH(NOLOCK)
             {$where}
             ORDER BY id_cidadao
@@ -68,8 +76,10 @@ class CidadaosRestApi extends RestApi
         ";
 
         $items = $this->db->query($sql)->fetchAllArray();
-
+        
+        $totalRegistros = 0;
         foreach ($items as $item) {
+            $totalRegistros = $item['total_registros'];
             if ($item['status'] = 1) {
                 $item['nome_status'] = 'Ativo';
             } else {
@@ -78,7 +88,7 @@ class CidadaosRestApi extends RestApi
         }
 
         $response = [
-            'total' => count($items),
+            'total' => $totalRegistros,
             'items' => $items,
         ];
 
