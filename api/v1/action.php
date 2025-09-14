@@ -96,6 +96,8 @@ try {
 
 } catch (InvalidArgumentException $e) {
     catchException($e);
+} catch (SqlStateException $e) {
+    catchException($e);
 } catch (RestApiException $e) {
     catchException($e);
 } catch (Exception $e) {

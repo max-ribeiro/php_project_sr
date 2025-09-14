@@ -178,7 +178,7 @@ function processarResultados(data) {
         var $td = $('<td />');
 
         var $btnEditar = $('<button type="button" />');
-        $btnEditar.addClass('btn btn-warning btn-xs');
+        $btnEditar.addClass('btn btn-warning btn-xs cidadao-edit-btn');
         $btnEditar.html('<i class="fa fa-edit fa-fw"></i>');
         $btnEditar.data($item);
         $btnEditar.click(function () {

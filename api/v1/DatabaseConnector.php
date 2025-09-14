@@ -63,11 +63,17 @@ class DatabaseConnector
     protected function throwSqlStateException($stmt, $sql = null, $params = array())
     {
         if ($stmt === false) {
-            $errors = sqlsrv_errors();
+            $errors = sqlsrv_errors(SQLSRV_ERR_ERRORS);
+            $msg = 'Erro SQL não especificado.';
+
+            if ($errors && is_array($errors)) {
+                $msg = "Erro ao tratar informações no banco";
+            }
+
             phpLog($errors);
             phpLog($sql);
             phpLog($params);
-            throw new SqlStateException();
+            throw new SqlStateException($msg);
         }
     }
 
