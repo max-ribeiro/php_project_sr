@@ -72,6 +72,7 @@ $(document).ready(function () {
         });
     });
     handleDrowpdownSelection();
+    handleInputMask();
 });
 
 function consultar(pagina) {
@@ -263,4 +264,8 @@ function handleDrowpdownSelection() {
 
         $('#tpBusca').val(value);
     });
+}
+function handleInputMask() {
+    $('#telefone').mask('(00) 00000-0000');
+    $('#cpf').mask('000.000.000-00', {reverse: true});
 }

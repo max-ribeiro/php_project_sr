@@ -196,6 +196,8 @@ $initialState = [
         localStorage.setItem("token", token);
     }
 </script>
+<script>
+
 <script>window.initialState = <?= json_encode($initialState) ?>;</script>
 <script src="<?= _URL_HOME_ ?>assets/vendor/jquery/jquery.min.js"></script>
 <script src="<?= _URL_HOME_ ?>assets/vendor/jquery-ui/jquery-ui.min.js"></script>
@@ -207,11 +209,11 @@ $initialState = [
 <script src="<?= _URL_HOME_ ?>assets/vendor/select2/dist/js/i18n/pt-BR.js"></script>
 <script src="<?= _URL_HOME_ ?>assets/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 <script src="<?= _URL_HOME_ ?>assets/js/jquery.datetimepicker.period/jquery.datetimepicker.period.js"></script>
+<script src="<?= _URL_HOME_ ?>assets/js/jquery.mask/jquery.mask.min.js"></script>
 <script src="<?= _URL_HOME_ ?>assets/vendor/toastr/toastr.min.js"></script>
 <script src="<?= _URL_HOME_ ?>assets/vendor/bootpag/jquery.bootpag.min.js"></script>
 <?= tagScript(_URL_HOME_ . 'assets/vendor/jquery.blockUI/jquery.blockUI.min.js') ?>
 <?= tagScript(_URL_HOME_ . 'assets/vendor/handlebars/handlebars.min.js') ?>
 <?= tagScript(_URL_HOME_ . 'cidadao/index.js') ?>
-
 </body>
 </html>

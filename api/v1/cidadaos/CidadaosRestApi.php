@@ -45,13 +45,13 @@ class CidadaosRestApi extends RestApi
         }
 
         if (!empty($params['nome'])) {
-            $where[] = " AND nome = '{$params['nome']}' ";
+            $where[] = " AND nome LIKE '%{$params['nome']}%' ";
         }
-
+        
         if (!empty($params['cpf'])) {
             $where[] = " AND cpf = '{$params['cpf']}' ";
         }
-
+        
         if (!empty($params['telefone'])) {
             $where[] = " AND telefone = {$params['telefone']} ";
         }
@@ -66,7 +66,7 @@ class CidadaosRestApi extends RestApi
             ORDER BY id_cidadao
             {$pagination}
         ";
-        
+
         $items = $this->db->query($sql)->fetchAllArray();
 
         foreach ($items as $item) {
