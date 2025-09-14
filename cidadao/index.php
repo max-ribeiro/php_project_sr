@@ -196,8 +196,6 @@ $initialState = [
         localStorage.setItem("token", token);
     }
 </script>
-<script>
-
 <script>window.initialState = <?= json_encode($initialState) ?>;</script>
 <script src="<?= _URL_HOME_ ?>assets/vendor/jquery/jquery.min.js"></script>
 <script src="<?= _URL_HOME_ ?>assets/vendor/jquery-ui/jquery-ui.min.js"></script>
