@@ -19,7 +19,7 @@ function outputJson($data, $statusCode = 200) {
 // Function to handle exceptions as JSON
 function catchException($e) {
     $error = [
-        'message' => $e->getMessage(),
+        'message' => $e->getMessage() ?: 'Erro ao processar requisição',
     ];
     Response::withJson([$error], $e->getCode() ?: 500);
 }

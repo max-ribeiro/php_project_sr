@@ -71,6 +71,7 @@ $(document).ready(function () {
             );
         });
     });
+    handleDrowpdownSelection();
 });
 
 function consultar(pagina) {
@@ -241,5 +242,19 @@ function insereParametrosBusca() {
         var dt = $('<dt>' + label + '</dt>');
         var dd = $('<dd>' + text + '</dd>');
         $elParams.append(dt).append(dd);
+    });
+}
+function handleDrowpdownSelection() {
+    $(document).on('click', '.dropdown-menu li a', function (e) {
+    e.preventDefault();
+
+    var value = $(this).data('value');
+    var text = $(this).text();
+
+    $(this).closest('.input-group-btn')
+            .find('button span:first')
+            .text(text);
+
+        $('#tpBusca').val(value);
     });
 }
