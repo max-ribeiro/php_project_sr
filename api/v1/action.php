@@ -88,8 +88,8 @@ try {
     // Output response (assuming httpResponse collects data)
     if ($ref->hasMethod('httpResponse')) {
         $refMethod = $ref->getMethod('httpResponse');
+
         $response = $refMethod->invoke($instance, true, $devMode);
-        Response::withJson($response, 200);
     } else {
         Response::withJson(['data' => $result], 200);
     }

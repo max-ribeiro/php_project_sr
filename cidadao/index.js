@@ -173,10 +173,10 @@ function processarResultados(data) {
             // TO DO
         });
 
-        $tr.append($td.clone().html($item.nm_cidadao));
+        $tr.append($td.clone().html($item.nome));
         $tr.append($td.clone().html($item.cpf));
         $tr.append($td.clone().html($item.telefone));
-        $tr.append($td.clone().html($item.nome_status));
+        $tr.append($td.clone().html($item.status));
         $tr.append($td.clone().append([$btnEditar]));
 
         $('#resultados .itens tbody').append($tr);
