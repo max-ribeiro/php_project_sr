@@ -63,6 +63,7 @@ $(document).ready(function () {
                 if (data.status == 'ok') {
                     toastr.success('Registro inserido com sucesso.');
                     $('#modal-novo-registro').modal('hide');
+                    $('#consultar').trigger('click');
                 } else {
                     toastr.error(
                         data.message ||
@@ -107,7 +108,7 @@ $(document).ready(function () {
                 if (data.status == 'ok') {
                     toastr.success('Registro atualizado com sucesso.');
                     $('#modal-editar-registro').modal('hide');
-                    location.reload();
+                    $('#consultar').trigger('click');
                 } else {
                     toastr.error(
                         data.message ||
@@ -126,6 +127,78 @@ $(document).ready(function () {
         });
     });
 
+    $('#btn-remove-cidadao').on('click', function(e) {
+        const id_cidadao = $(this).data('id_cidadao');
+        const token = localStorage.getItem('token');
+        $('<div></div>').dialog({
+            modal: true,
+            title: 'Confirmar Exclusão',
+            resizable: false,
+            width: 400,
+            dialogClass: 'no-close',
+            appendTo: '#modal-editar-registro', // Garante que o diálogo seja anexado ao modal
+            buttons: [
+                {
+                    text: 'Cancelar',
+                    class: 'btn btn-default',
+                    click: function() {
+                        $(this).dialog('close');
+                    }
+                },
+                {
+                    text: 'Excluir',
+                    class: 'btn btn-danger',
+                    click: function() {
+                        const dialog = $(this);
+                        const data = {
+                            _class: 'cidadaos',
+                            _method: 'excluir',
+                            id_cidadao
+                        }
+                        $.ajax({
+                            url: window.initialState.urlHome + 'api/v1/action.php',
+                            dataType: 'json',
+                            cache: false,
+                            data: data,
+                            method: 'POST',
+                            headers: {
+                                Authorization: 'Bearer ' + token
+                            },
+                            success: function (data) {
+                                if (data.status == 'ok') {
+                                    toastr.success('Registro removido com sucesso.');
+                                     // Recarregar a lista de cidadãos
+                                    $('#consultar').trigger('click');
+                                    dialog.dialog('close');
+                                    $('#modal-editar-registro').modal('hide');
+                                } else {
+                                    toastr.error(
+                                        data.message ||
+                                        'Falha no processamento da requisição. ' +
+                                        'Entre em contato com o suporte.'
+                                    );
+                                    $("#confirmarAtualizacao").prop('disabled', false);
+                                }
+                            }
+                        }).done(function (data) {
+                        }).error(function () {
+                            toastr.error(
+                                'Falha no processamento da requisição. ' +
+                                'Entre em contato com o suporte.'
+                            );
+                        });
+                    }
+                }
+            ],
+            open: function() {
+                $(this).html('<p>Tem certeza que deseja excluir este registro?</p>');
+            },
+            close: function() {
+                $(this).remove(); // Remove o elemento do DOM após fechar
+            }
+        });
+    });
+
     handleDrowpdownSelection();
     handleInputMask();
 });
@@ -134,6 +207,7 @@ function consultar(pagina) {
     var data = {
         _class: 'cidadaos',
         _method: 'consultar',
+        getEndereco: true,
         pageNumber: pagina
     };
 
@@ -243,6 +317,7 @@ function processarResultados(data) {
             $modal.find('#nome').val(nome);
             $modal.find('#cpf').val(cpf);
             $modal.find('#telefone').val(telefone);
+            $modal.find('#btn-remove-cidadao').data('id_cidadao', id_cidadao);
         });
 
         $tr.append($td.clone().html($item.nome));

@@ -152,8 +152,6 @@ class CidadaosRestApi extends RestApi
         DELETE FROM cidadaos
         WHERE id_cidadao = ?
         ";
-        var_dump($id_cidadao);
-        die();
 
         $this->db->query($sql,[0 => $id_cidadao]);
 

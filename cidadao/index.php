@@ -31,6 +31,9 @@ $initialState = [
     <?= tagStyle(_URL_HOME_ . 'assets/vendor/toastr/toastr.min.css') ?>
     <?= tagStyle(_URL_HOME_ . 'assets/vendor/select2/dist/css/select2.min.css') ?>
     <?= tagStyle(_URL_HOME_ . 'assets/vendor/select2-bootstrap-theme/dist/select2-bootstrap.min.css') ?>
+    <?= tagStyle(_URL_HOME_ . 'assets/vendor/jquery-ui/jquery-ui.min.css') ?>
+    <?= tagStyle(_URL_HOME_ . 'assets/vendor/jquery-ui/jquery-ui.theme.min.css') ?>
+    <?= tagStyle(_URL_HOME_ . 'assets/vendor/jquery-ui/jquery-ui.structure.min.css') ?>
     <?= tagStyle(_URL_HOME_ . 'assets/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') ?>
     <?= tagStyle(_URL_HOME_ . 'assets/css/multiselect/multiselect.css') ?>
     <?= tagStyle(_URL_HOME_ . 'assets/styles/bootstrap.sigo.css') ?>
@@ -150,7 +153,7 @@ $initialState = [
                 <button class="close" type="button" data-dismiss="modal">
                     <span>+</span>
                 </button>
-                <h4 class="modal-title">Novo registro</h4>
+                <h4 class="modal-title">Cadastrar Cidadão</h4>
             </div>
             <div class="modal-body">
                 <form id="cadastrar" class="row">
@@ -200,8 +203,8 @@ $initialState = [
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header clearfix">
-                <h4 class="modal-title pull-left">Editar registro</h4>
-                <button type="button" class="btn btn-danger btn-xs pull-right cidadao-edit-btn" id="btn-remove-cidadao">
+                <h4 class="modal-title pull-left">Editar Cidadão</h4>
+                <button type="button" class="btn btn-danger btn-xs pull-right cidadao-edit-btn" id="btn-remove-cidadao" title="deletar registro">
                     <i class="fa fa-trash fa-fw"></i>
                 </button>
             </div>
