@@ -5,7 +5,7 @@ header('Content-Type: text/html; charset=utf-8');
 require_once(__DIR__ . '/../config.php');
 require_once(_DIR_HOME_ . 'db.php');
 require_once(_DIR_HOME_ . 'functions.php');
-require_once(_DIR_HOME_ . 'handlers/sessionCheck.php');
+require_once(_DIR_HOME_ . 'middlewares/sessionCheck.php');
 require_once(_DIR_HOME_ . 'classes/ConnectionInfo.php');
 require_once(_DIR_HOME_ . 'api/v1/DatabaseConnector.php');
 
@@ -29,8 +29,6 @@ $initialState = [
     <?= tagStyle(_URL_HOME_ . 'assets/vendor/bootstrap/css/bootstrap.min.css') ?>
     <?= tagStyle(_URL_HOME_ . 'assets/vendor/font-awesome/css/font-awesome.css') ?>
     <?= tagStyle(_URL_HOME_ . 'assets/vendor/toastr/toastr.min.css') ?>
-    <?= tagStyle(_URL_HOME_ . 'assets/vendor/select2/dist/css/select2.min.css') ?>
-    <?= tagStyle(_URL_HOME_ . 'assets/vendor/select2-bootstrap-theme/dist/select2-bootstrap.min.css') ?>
     <?= tagStyle(_URL_HOME_ . 'assets/vendor/jquery-ui/jquery-ui.min.css') ?>
     <?= tagStyle(_URL_HOME_ . 'assets/vendor/jquery-ui/jquery-ui.theme.min.css') ?>
     <?= tagStyle(_URL_HOME_ . 'assets/vendor/jquery-ui/jquery-ui.structure.min.css') ?>
@@ -39,6 +37,8 @@ $initialState = [
     <?= tagStyle(_URL_HOME_ . 'assets/styles/bootstrap.sigo.css') ?>
     <?= tagStyle(_URL_HOME_ . 'css/complemento-bootstrap.css') ?>
     <?= tagStyle(_URL_HOME_ . 'css/index.css') ?>
+    <?= tagStyle(_URL_HOME_ . 'assets/vendor/select2/dist/css/select2.min.css') ?>
+    <?= tagStyle(_URL_HOME_ . 'assets/vendor/select2-bootstrap-theme/dist/select2-bootstrap.min.css') ?>
 
 </head>
 <body>
@@ -96,7 +96,7 @@ $initialState = [
                         <div class="form-group">
                             <label>Cidadão:</label>
                             <div class="row">
-                                <div class="col-md-9">
+                                <div class="col-md-10">
                                     <div class="input-group">
                                         <div class="input-group-btn">
                                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -113,8 +113,8 @@ $initialState = [
                                         <input type="hidden" id="tpBusca" name="tpBusca" value="nome">
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <select class="form-control" name="state" id="cidadao-status-select">
+                                <div class="col-md-2">
+                                    <select class="form-control" name="state" id="cidadao-status-select" style="width: 100%">
                                         <option value="1">Ativos</option>
                                         <option value="0">Inativos</option>
                                         <option value="-1">Todos</option>

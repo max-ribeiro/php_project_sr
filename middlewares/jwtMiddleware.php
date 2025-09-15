@@ -23,6 +23,9 @@ $jwt = trim(substr($authHeader, 7));
 $validationMessage = JWTAuth::validate($jwt);
 
 if(empty($validationMessage['valid'])) {
+    if($validationMessage['code']) {
+        session_destroy();
+    }
     Response::withJson([
         'message' => $validationMessage['error']
     ],  $validationMessage['code']);

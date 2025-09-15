@@ -36,6 +36,7 @@ class JWTAuth {
      * Gera o token JWT
      *
      * @return string
+     * @todo adicionar um refresh token para gerar novo token apóes expiração do token do cliente
      */
     public static function generateToken($data) {
         $now = new DateTimeImmutable('now', new DateTimeZone('UTC'));
@@ -44,7 +45,7 @@ class JWTAuth {
         $payload = [
             'iss' => $data['login'],
             'iat' => $now->getTimestamp(),
-            'exp' => $now->modify('+1 hour')->getTimestamp()
+            'exp' => $now->modify('+2 hour')->getTimestamp()
         ];
 
         /**
