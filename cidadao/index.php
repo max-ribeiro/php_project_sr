@@ -95,23 +95,31 @@ $initialState = [
                     <div class="col-md-12">
                         <div class="form-group">
                             <label>Cidadão:</label>
-                            <div class="input-group">
-                                <div class="input-group-btn">
-                                    <button type="button" class="btn btn-default dropdown-toggle"
-                                            data-toggle="dropdown"
-                                            aria-haspopup="true" aria-expanded="false">
-                                        <span>Nome</span> <span class="caret"></span>
-                                    </button>
-                                    <ul data-js-change--type="" data-js-tp="tpBusca"
-                                        data-js-campo="cidadao" class="dropdown-menu">
-                                        <li><a href="#" data-value="nome">Nome</a></li>
-                                        <li><a href="#" data-value="cpf">CPF</a></li>
-                                        <li><a href="#" data-value="telefone">Telefone</a></li>
-                                    </ul>
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="input-group">
+                                        <div class="input-group-btn">
+                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <span>Nome</span> <span class="caret"></span>
+                                            </button>
+                                            <ul data-js-change--type="" data-js-tp="tpBusca" data-js-campo="cidadao" class="dropdown-menu">
+                                                <li><a href="#" data-value="nome">Nome</a></li>
+                                                <li><a href="#" data-value="cpf">CPF</a></li>
+                                                <li><a href="#" data-value="telefone">Telefone</a></li>
+                                            </ul>
+                                        </div>
+                                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                                        <input type="text" id="cidadao" name="cidadao" class="form-control">
+                                        <input type="hidden" id="tpBusca" name="tpBusca" value="nome">
+                                    </div>
                                 </div>
-                                <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                                <input type="text" id="cidadao" name="cidadao" class="form-control">
-                                <input type="hidden" id="tpBusca" name="tpBusca" value="nome">
+                                <div class="col-md-3">
+                                    <select class="form-control" name="state" id="cidadao-status-select">
+                                        <option value="1">Ativos</option>
+                                        <option value="0">Inativos</option>
+                                        <option value="-1">Todos</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>

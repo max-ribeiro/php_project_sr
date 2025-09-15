@@ -363,12 +363,16 @@ $(document).ready(function () {
 
     handleDrowpdownSelection();
     handleInputMask();
+    handleSelect2();
 });
 
 function consultar(pagina) {
+    const status = $('#cidadao-status-select').val();
+
     var data = {
         _class: 'cidadaos',
         _method: 'consultar',
+        status,
         getEndereco: true,
         pageNumber: pagina
     };
@@ -670,4 +674,7 @@ function getAddresses(id_cidadao) {
             Authorization: 'Bearer ' + token
         }
     });
+}
+function handleSelect2() {
+    $('#cidadao-status-select').select2();
 }

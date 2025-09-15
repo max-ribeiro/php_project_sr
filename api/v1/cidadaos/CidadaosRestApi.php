@@ -54,6 +54,10 @@ class CidadaosRestApi extends RestApi
             $where[] = " AND telefone LIKE '%{$params['telefone']}%' ";
         }
 
+        if(isset($params['status']) && '-1' != $params['status']) {
+            $where[] = " AND status = '{$params['status']}'";
+        }
+
         $where = join("\n", $where);
 
         $sql = "
