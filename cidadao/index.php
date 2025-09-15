@@ -303,7 +303,7 @@ $initialState = [
                     </div>
                     <div class="form-group">
                         <div class="col-md-12">
-                            <button type="submit" class="btn btn-success pull-right">
+                            <button type="submit" id="btn-new-address" class="btn btn-success pull-right">
                                 <i class="fa fa-plus"></i> Salvar Endereço
                             </button>
                         </div>

@@ -34,6 +34,7 @@ $(document).ready(function () {
         consultar(1);
     });
 
+    /** metodos cidadao */
     $('#confirmarSalvar').click(function (e) {
         toastr.clear();
 
@@ -82,6 +83,167 @@ $(document).ready(function () {
         });
     });
 
+    $('#corfirmarAtualizar').click(function (e) {
+        toastr.clear();
+
+        const token = localStorage.getItem("token");
+
+        var data = {
+            _class: 'cidadaos',
+            _method: 'editar'
+        };
+
+        $.extend(data, serializeObject($('form#editar')));
+
+        $.ajax({
+            url: window.initialState.urlHome + 'api/v1/action.php',
+            dataType: 'json',
+            cache: false,
+            data: data,
+            method: 'POST',
+            headers: {
+                Authorization: 'Bearer ' + token
+            },
+            success: function (data) {
+                if (data.status == 'ok') {
+                    toastr.success('Registro atualizado com sucesso.');
+                    $('#modal-editar-registro').modal('hide');
+                    $('#consultar').trigger('click');
+                } else {
+                    toastr.error(
+                        data.message ||
+                        'Falha no processamento da requisição. ' +
+                        'Entre em contato com o suporte.'
+                    );
+                    $("#confirmarAtualizar").prop('disabled', false);
+                }
+            }
+        }).done(function (data) {
+        }).error(function () {
+            toastr.error(
+                'Falha no processamento da requisição. ' +
+                'Entre em contato com o suporte.'
+            );
+        });
+    });
+
+    $('#btn-remove-cidadao').on('click', function(e) {
+        const id_cidadao = $(this).data('id_cidadao');
+        const token = localStorage.getItem('token');
+        $('<div></div>').dialog({
+            modal: true,
+            title: 'Confirmar Exclusão',
+            resizable: false,
+            width: 400,
+            dialogClass: 'no-close',
+            appendTo: '#modal-editar-registro', // Garante que o diálogo seja anexado ao modal
+            buttons: [
+                {
+                    text: 'Cancelar',
+                    class: 'btn btn-default',
+                    click: function() {
+                        $(this).dialog('close');
+                    }
+                },
+                {
+                    text: 'Excluir',
+                    class: 'btn btn-danger',
+                    click: function() {
+                        const dialog = $(this);
+                        const data = {
+                            _class: 'cidadaos',
+                            _method: 'excluir',
+                            id_cidadao
+                        }
+                        $.ajax({
+                            url: window.initialState.urlHome + 'api/v1/action.php',
+                            dataType: 'json',
+                            cache: false,
+                            data: data,
+                            method: 'POST',
+                            headers: {
+                                Authorization: 'Bearer ' + token
+                            },
+                            success: function (data) {
+                                if (data.status == 'ok') {
+                                    toastr.success('Registro removido com sucesso.');
+                                     // Recarregar a lista de cidadãos
+                                    $('#consultar').trigger('click');
+                                    dialog.dialog('close');
+                                    $('#modal-editar-registro').modal('hide');
+                                } else {
+                                    toastr.error(
+                                        data.message ||
+                                        'Falha no processamento da requisição. ' +
+                                        'Entre em contato com o suporte.'
+                                    );
+                                    $("#confirmarAtualizacao").prop('disabled', false);
+                                }
+                            }
+                        }).done(function (data) {
+                        }).error(function () {
+                            toastr.error(
+                                'Falha no processamento da requisição. ' +
+                                'Entre em contato com o suporte.'
+                            );
+                        });
+                    }
+                }
+            ],
+            open: function() {
+                $(this).html('<p>Tem certeza que deseja excluir este registro?</p>');
+            },
+            close: function() {
+                $(this).remove(); // Remove o elemento do DOM após fechar
+            }
+        });
+    });
+
+    // actions enderecos
+    $('#btn-new-address').click(function (e) {
+        e.preventDefault();
+        toastr.clear();
+
+        const token = localStorage.getItem("token");
+
+        var data = {
+            _class: 'enderecos',
+            _method: 'inserir'
+        };
+
+        $.extend(data, serializeObject($('form#novo-endereco')));
+
+        $.ajax({
+            url: window.initialState.urlHome + 'api/v1/action.php',
+            dataType: 'json',
+            cache: false,
+            data: data,
+            method: 'POST',
+            headers: {
+                Authorization: 'Bearer ' + token
+            },
+            success: function (data) {
+                if (data.status == 'ok') {
+                    toastr.success('Endereço cadastrado com sucesso.');
+                    $('#modal-enderecos').modal('hide');
+                    $('#consultar').trigger('click');
+                } else {
+                    toastr.error(
+                        data.message ||
+                        'Falha no processamento da requisição. ' +
+                        'Entre em contato com o suporte.'
+                    );
+                    $("#btn-new-address").prop('disabled', false);
+                }
+            }
+        }).done(function (data) {
+        }).error(function () {
+            toastr.error(
+                'Falha no processamento da requisição. ' +
+                'Entre em contato com o suporte.'
+            );
+        });
+    });
 
     $('#corfirmarAtualizar').click(function (e) {
         toastr.clear();
