@@ -245,122 +245,6 @@ $(document).ready(function () {
         });
     });
 
-    $('#corfirmarAtualizar').click(function (e) {
-        toastr.clear();
-
-        const token = localStorage.getItem("token");
-
-        var data = {
-            _class: 'cidadaos',
-            _method: 'editar'
-        };
-
-        $.extend(data, serializeObject($('form#editar')));
-
-        $.ajax({
-            url: window.initialState.urlHome + 'api/v1/action.php',
-            dataType: 'json',
-            cache: false,
-            data: data,
-            method: 'POST',
-            headers: {
-                Authorization: 'Bearer ' + token
-            },
-            success: function (data) {
-                if (data.status == 'ok') {
-                    toastr.success('Registro atualizado com sucesso.');
-                    $('#modal-editar-registro').modal('hide');
-                    $('#consultar').trigger('click');
-                } else {
-                    toastr.error(
-                        data.message ||
-                        'Falha no processamento da requisição. ' +
-                        'Entre em contato com o suporte.'
-                    );
-                    $("#confirmarAtualizar").prop('disabled', false);
-                }
-            }
-        }).done(function (data) {
-        }).error(function () {
-            toastr.error(
-                'Falha no processamento da requisição. ' +
-                'Entre em contato com o suporte.'
-            );
-        });
-    });
-
-    $('#btn-remove-cidadao').on('click', function(e) {
-        const id_cidadao = $(this).data('id_cidadao');
-        const token = localStorage.getItem('token');
-        $('<div></div>').dialog({
-            modal: true,
-            title: 'Confirmar Exclusão',
-            resizable: false,
-            width: 400,
-            dialogClass: 'no-close',
-            appendTo: '#modal-editar-registro', // Garante que o diálogo seja anexado ao modal
-            buttons: [
-                {
-                    text: 'Cancelar',
-                    class: 'btn btn-default',
-                    click: function() {
-                        $(this).dialog('close');
-                    }
-                },
-                {
-                    text: 'Excluir',
-                    class: 'btn btn-danger',
-                    click: function() {
-                        const dialog = $(this);
-                        const data = {
-                            _class: 'cidadaos',
-                            _method: 'excluir',
-                            id_cidadao
-                        }
-                        $.ajax({
-                            url: window.initialState.urlHome + 'api/v1/action.php',
-                            dataType: 'json',
-                            cache: false,
-                            data: data,
-                            method: 'POST',
-                            headers: {
-                                Authorization: 'Bearer ' + token
-                            },
-                            success: function (data) {
-                                if (data.status == 'ok') {
-                                    toastr.success('Registro removido com sucesso.');
-                                     // Recarregar a lista de cidadãos
-                                    $('#consultar').trigger('click');
-                                    dialog.dialog('close');
-                                    $('#modal-editar-registro').modal('hide');
-                                } else {
-                                    toastr.error(
-                                        data.message ||
-                                        'Falha no processamento da requisição. ' +
-                                        'Entre em contato com o suporte.'
-                                    );
-                                    $("#confirmarAtualizacao").prop('disabled', false);
-                                }
-                            }
-                        }).done(function (data) {
-                        }).error(function () {
-                            toastr.error(
-                                'Falha no processamento da requisição. ' +
-                                'Entre em contato com o suporte.'
-                            );
-                        });
-                    }
-                }
-            ],
-            open: function() {
-                $(this).html('<p>Tem certeza que deseja excluir este registro?</p>');
-            },
-            close: function() {
-                $(this).remove(); // Remove o elemento do DOM após fechar
-            }
-        });
-    });
-
     handleDrowpdownSelection();
     handleInputMask();
     handleSelect2();
@@ -520,14 +404,17 @@ function processarResultados(data) {
                         .append($('<p>').text(`${endereco.logradouro}, ${endereco.numero}`))
                         .append($('<p>').text(`${endereco.cidade} - ${endereco.uf}`))
                         .append(endereco.principal === "1" ? '<i class="fa fa-star"></i>' : '');
-                    const $panelFooter = $('<div>').addClass('panel-footer')
-                        .append($('<button>').addClass('btn btn-warning btn-sm marcar-principal')
-                            .attr('data-id', endereco.id_endereco)
-                            .append('<i class="fa fa-star"></i>')
-                            .append(endereco.principal === "1" ? ' Desmarcar Principal' : ' Marcar Principal'))
-                        .append($('<button>').addClass('btn btn-danger btn-sm excluir-endereco')
-                            .attr('data-id', endereco.id_endereco)
-                            .append('<i class="fa fa-trash"></i> Excluir'));
+                    const $panelFooter = $('<div>').addClass('panel-footer');
+
+                    $deleteAddressBtn = $('<button>').addClass('btn btn-danger btn-sm excluir-endereco')
+                        .data('id_endereco', endereco.id_endereco)
+                        .append('<i class="fa fa-trash"></i> Excluir');
+
+                    $deleteAddressBtn.click(function() {
+                        removeAddress(endereco.id_endereco);
+                    });
+
+                    $panelFooter.append($deleteAddressBtn);
 
                     $panel.append($panelBody).append($panelFooter);
                     $col.append($panel);
@@ -677,4 +564,42 @@ function getAddresses(id_cidadao) {
 }
 function handleSelect2() {
     $('#cidadao-status-select').select2();
+}
+
+function removeAddress(id_endereco) {
+    const data = {
+        _class: 'enderecos',
+        _method: 'excluir',
+        id_endereco
+    }
+    $.ajax({
+        url: window.initialState.urlHome + 'api/v1/action.php',
+        dataType: 'json',
+        cache: false,
+        data: data,
+        method: 'POST',
+        headers: {
+            Authorization: 'Bearer ' + token
+        },
+        success: function (data) {
+            if (data.status == 'ok') {
+                toastr.success('Registro removido com sucesso.');
+                    // Recarregar a lista de cidadãos
+                $('#consultar').trigger('click');
+                $('#modal-enderecos').modal('hide');
+            } else {
+                toastr.error(
+                    data.message ||
+                    'Falha no processamento da requisição. ' +
+                    'Entre em contato com o suporte.'
+                );
+            }
+        }
+    }).done(function (data) {
+    }).error(function () {
+        toastr.error(
+            'Falha no processamento da requisição. ' +
+            'Entre em contato com o suporte.'
+        );
+    });
 }
