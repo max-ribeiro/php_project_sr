@@ -25,10 +25,18 @@ function catchException($e) {
 }
 
 try {
-    $class = $_REQUEST['_class'] ?? null;
-    $className = $_REQUEST['_className'] ?? '';
-    $method = $_REQUEST['_method'] ?? null;
-    $devMode = isset($_REQUEST['_dev_mode']);
+    $params = [];
+    $jsonInput = file_get_contents('php://input');
+    if(!empty($_REQUEST['_class'])) {
+        $params = $_REQUEST;
+    } else if ($jsonInput) {
+        $params = json_decode($jsonInput, true);
+    }
+
+    $class = $params['_class'] ?? null;
+    $className = $params['_className'] ?? '';
+    $method = $params['_method'] ?? null;
+    $devMode = isset($params['_dev_mode']);
 
     if (empty($class) || empty($method)) {
         throw new InvalidArgumentException('Os parâmetros "_class" e "_method" são obrigatórios');
