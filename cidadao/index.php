@@ -315,55 +315,6 @@ $initialState = [
                     <div class="col-md-12">
                         <legend class="col-md-12 control-legend"><h5>Endereços cadastrados</h5></label>
                     </div>
-                    <div class="col-md-4">
-                        <div class="panel panel-default panel-success" style="height: 150px;">
-                            <div class="panel-body" style="display: flex; flex-direction: column; justify-content: center;">
-                                <p>Rua Tal, 123</p>
-                                <p>São Paulo - SP</p>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="panel-footer">
-                                <button class="btn btn-warning btn-sm marcar-principal" data-id="1">
-                                    <i class="fa fa-star"></i> Desmarcar Principal
-                                </button>
-                                <button class="btn btn-danger btn-sm excluir-endereco" data-id="1">
-                                    <i class="fa fa-trash"></i> Excluir
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="panel panel-default" style="height: 150px;">
-                            <div class="panel-body" style="display: flex; flex-direction: column; justify-content: center;">
-                                <p>Rua Tal, 456</p>
-                                <p>São Paulo - SP</p>
-                            </div>
-                            <div class="panel-footer">
-                                <button class="btn btn-warning btn-sm marcar-principal" data-id="2">
-                                    <i class="fa fa-star"></i> Marcar Principal
-                                </button>
-                                <button class="btn btn-danger btn-sm excluir-endereco" data-id="2">
-                                    <i class="fa fa-trash"></i> Excluir
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="panel panel-default" style="height: 150px;">
-                            <div class="panel-body" style="display: flex; flex-direction: column; justify-content: center;">
-                                <p>Rua Tal, 789</p>
-                                <p>São Paulo - SP</p>
-                            </div>
-                            <div class="panel-footer">
-                                <button class="btn btn-warning btn-sm marcar-principal" data-id="3">
-                                    <i class="fa fa-star"></i> Marcar Principal
-                                </button>
-                                <button class="btn btn-danger btn-sm excluir-endereco" data-id="3">
-                                    <i class="fa fa-trash"></i> Excluir
-                                </button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="modal-footer">

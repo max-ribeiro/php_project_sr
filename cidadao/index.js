@@ -489,14 +489,51 @@ function processarResultados(data) {
         $btnAddress.data('item', $item); // armazena no botão
 
         $btnAddress.click(function () {
-            const item = $(this).data('item');
-            const $modal = $('#modal-enderecos');
-            $modal.find('#enderecos-title').html(`Endereços de ${item.nome}`);
-            $modal.find('#id_cidadao').val(item.id_cidadao);
+        const item = $(this).data('item');
+        const $modal = $('#modal-enderecos');
+        $modal.find('#enderecos-title').html(`Endereços de ${item.nome}`);
+        $modal.find('#id_cidadao').val(item.id_cidadao);
 
-            $modal.modal({backdrop: 'static'});
+        $modal.modal({backdrop: 'static'});
+        getAddresses(item.id_cidadao)
+            .done(data => {
+                const $listaEnderecos = $('#lista-enderecos');
+                // Remover qualquer conteúdo pré-existente exceto o legend
+                $listaEnderecos.find('.col-md-4').remove();
 
-        });
+                // Iterar sobre os itens e criar cards dinamicamente
+                $.each(data.items, function(index, endereco) {
+                    const $col = $('<div>').addClass('col-md-4');
+                    const $panel = $('<div>').addClass('panel panel-default')
+                        .toggleClass('panel-success', endereco.principal === "1");
+                    const $panelBody = $('<div>').addClass('panel-body')
+                        .css({
+                            'display': 'flex',
+                            'flex-direction': 'column',
+                            'justify-content': 'center',
+                            'height': '150px'
+                        })
+                        .append($('<p>').text(`${endereco.logradouro}, ${endereco.numero}`))
+                        .append($('<p>').text(`${endereco.cidade} - ${endereco.uf}`))
+                        .append(endereco.principal === "1" ? '<i class="fa fa-star"></i>' : '');
+                    const $panelFooter = $('<div>').addClass('panel-footer')
+                        .append($('<button>').addClass('btn btn-warning btn-sm marcar-principal')
+                            .attr('data-id', endereco.id_endereco)
+                            .append('<i class="fa fa-star"></i>')
+                            .append(endereco.principal === "1" ? ' Desmarcar Principal' : ' Marcar Principal'))
+                        .append($('<button>').addClass('btn btn-danger btn-sm excluir-endereco')
+                            .attr('data-id', endereco.id_endereco)
+                            .append('<i class="fa fa-trash"></i> Excluir'));
+
+                    $panel.append($panelBody).append($panelFooter);
+                    $col.append($panel);
+                    $listaEnderecos.append($col);
+                });
+            })
+            .fail(err => {
+                console.error(err);
+            });
+    });
 
         buttonsDiv.append([$btnEditar, $btnAddress]);
 
@@ -614,6 +651,23 @@ function validateInsertForm() {
     return true;
 }
 
-function handleCidadaoEdit(cidadaoRecord) {
-    console.dir(cidadaoRecord);
+function getAddresses(id_cidadao) {
+    var data = {
+        _class: 'enderecos',
+        _method: 'consultar',
+        id_cidadao
+    };
+
+    const token = localStorage.getItem("token");
+
+    return $.ajax({
+        url: window.initialState.urlHome + 'api/v1/action.php',
+        dataType: 'json',
+        cache: false,
+        data: data,
+        method: 'POST',
+        headers: {
+            Authorization: 'Bearer ' + token
+        }
+    });
 }
