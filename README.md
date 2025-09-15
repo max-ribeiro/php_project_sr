@@ -7,6 +7,8 @@ composer install
 sera necessário criar a base e o usuário do SQL Server;
 Scripts na pasta _UTIL/baseDbCreation.sql
 
+endereço acesso: `http://localhost:8080`
+
 # API
 ## Autenticação:
 ``` bash
