@@ -47,7 +47,14 @@ class RestApi
     public static function createFromRequest()
     {
         $restApi = new static();
-        $restApi->setParams($_REQUEST);
+        $params = [];
+        $jsonInput = file_get_contents('php://input');
+        if(!empty($_REQUEST['_class'])) {
+            $params = $_REQUEST;
+        } else if ($jsonInput) {
+            $params = json_decode($jsonInput, true);
+        }
+        $restApi->setParams($params);
 
         return $restApi;
     }

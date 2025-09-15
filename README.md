@@ -1,8 +1,9 @@
 # Executando o projeto
-
-`docker compose up -d`
-`docker exec -it php74`
-`composer install`
+```bash
+docker compose up -d
+docker exec -it php74
+composer install
+```
 
 # API
 ## Autenticação:
@@ -16,7 +17,7 @@ curl -X POST http://localhost:8080/api/auth/auth.php \
 ``` bash
 curl -X POST http://localhost:8080/api/v1/action.php \
 -H "Content-Type: application/json" \
--H "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJqb2huRG9lIiwiaWF0IjoxNzU3OTMwNDc3LCJleHAiOjE3NTc5Mzc2Nzd9.zHpjyedV3XGLHULrDUI3rHbOMAuD2Yz95orx4cW9UfY" \
+-H "Authorization: Bearer seu_token_aqui" \
 -d '{
   "_class": "cidadaos", 
   "_method": "consultar",
@@ -26,4 +27,38 @@ curl -X POST http://localhost:8080/api/v1/action.php \
   "tpBusca": "nome",
   "state": 1
 }'
+```
+
+## Insert
+``` bash
+curl -X POST http://localhost:8080/api/v1/action.php \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer seu_token_aqui" \
+-d '{
+  "_class": "cidadaos",
+  "_method": "inserir",
+  "id_cidadao": "",
+  "nome": "FUlano de Tal",
+  "cpf": "444.444.444-44",
+  "telefone": "(33)33333-3333"
+}'
+```
+
+## Insert Endereço
+``` bash
+curl -X POST http://localhost:8080/api/v1/action.php \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer seu_token_aqui" \
+-d '{
+  "_class": "enderecos",
+  "_method": "inserir",
+  "id_cidadao": 77,
+  "logradouro": "Rua dos Bytes",
+  "numero": 410,
+  "bairro": "Centro",
+  "cidade": "Ubatuba",            
+  "uf": "SP",
+  "cep": "12215-222"
+}'
+
 ```
