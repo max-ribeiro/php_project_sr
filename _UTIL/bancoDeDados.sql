@@ -22,15 +22,18 @@ CREATE TABLE usuarios (
 
 CREATE TABLE enderecos (
     id_endereco NUMERIC(9,0) IDENTITY NOT NULL,
+    id_cidadao NUMERIC(9,0) NOT NULL,
     logradouro VARCHAR(200) NOT NULL,
     numero VARCHAR(20) NOT NULL,
     bairro VARCHAR(100) NOT NULL,
     cidade VARCHAR(100) NOT NULL,
     uf CHAR(2) NOT NULL,
     cep VARCHAR(10) NOT NULL,
+    principal BIT NOT NULL DEFAULT 0,
     data_criacao DATETIME DEFAULT GETDATE(),
     data_atualizacao DATETIME NULL,
-    CONSTRAINT PK_enderecos PRIMARY KEY (id_endereco)
+    CONSTRAINT PK_enderecos PRIMARY KEY (id_endereco),
+    CONSTRAINT FK_enderecos_cidadaos FOREIGN KEY (id_cidadao) REFERENCES cidadaos(id_cidadao)
 );
 
 -- Novo usuario
