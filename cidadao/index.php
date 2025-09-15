@@ -252,6 +252,132 @@ $initialState = [
     </div>
 </div>
 
+<!-- modal endereços -->
+<div class="modal fade" id="modal-enderecos">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header clearfix">
+                <h4 class="modal-title pull-left" id="enderecos-title">Endereços</h4>
+            </div>
+
+            <div class="modal-body">
+                <!-- Formulário de Novo Endereço -->
+                <form id="novo-endereco" class="form">
+                    <input type="hidden" id="id_cidadao" name="id_cidadao" value="">
+                    <div class="form-group">
+                        <legend class="col-md-12 control-legend"><h5>Novo Endereço</h5></label>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="logradouro">Logradouro:</label>
+                        <div class="col-md-4">
+                            <input class="form-control required" type="text" id="logradouro" name="logradouro">
+                        </div>
+                        <label class="col-md-2 control-label" for="numero">Número:</label>
+                        <div class="col-md-4">
+                            <input class="form-control required" type="text" id="numero" name="numero">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="bairro">Bairro:</label>
+                        <div class="col-md-4">
+                            <input class="form-control required" type="text" id="bairro" name="bairro">
+                        </div>
+                        <label class="col-md-2 control-label" for="cidade">Cidade:</label>
+                        <div class="col-md-4">
+                            <input class="form-control required" type="text" id="cidade" name="cidade">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="uf">UF:</label>
+                        <div class="col-md-2">
+                            <input class="form-control required" type="text" id="uf" name="uf" maxlength="2">
+                        </div>
+                        <label class="col-md-2 control-label" for="cep">CEP:</label>
+                        <div class="col-md-2">
+                            <input class="form-control required" type="text" id="cep" name="cep">
+                        </div>
+                        <label class="col-md-2 control-label" for="principal">Principal:</label>
+                        <div class="col-md-2">
+                            <input type="checkbox" id="principal" name="principal" value="1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-success pull-right">
+                                <i class="fa fa-plus"></i> Salvar Endereço
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Lista de Endereços com Cards Hardcoded -->
+                <div class="row" id="lista-enderecos" style="margin-top: 20px;">
+                    <div class="col-md-12">
+                        <legend class="col-md-12 control-legend"><h5>Endereços cadastrados</h5></label>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="panel panel-default panel-success" style="height: 150px;">
+                            <div class="panel-body" style="display: flex; flex-direction: column; justify-content: center;">
+                                <p>Rua Tal, 123</p>
+                                <p>São Paulo - SP</p>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="panel-footer">
+                                <button class="btn btn-warning btn-sm marcar-principal" data-id="1">
+                                    <i class="fa fa-star"></i> Desmarcar Principal
+                                </button>
+                                <button class="btn btn-danger btn-sm excluir-endereco" data-id="1">
+                                    <i class="fa fa-trash"></i> Excluir
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="panel panel-default" style="height: 150px;">
+                            <div class="panel-body" style="display: flex; flex-direction: column; justify-content: center;">
+                                <p>Rua Tal, 456</p>
+                                <p>São Paulo - SP</p>
+                            </div>
+                            <div class="panel-footer">
+                                <button class="btn btn-warning btn-sm marcar-principal" data-id="2">
+                                    <i class="fa fa-star"></i> Marcar Principal
+                                </button>
+                                <button class="btn btn-danger btn-sm excluir-endereco" data-id="2">
+                                    <i class="fa fa-trash"></i> Excluir
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="panel panel-default" style="height: 150px;">
+                            <div class="panel-body" style="display: flex; flex-direction: column; justify-content: center;">
+                                <p>Rua Tal, 789</p>
+                                <p>São Paulo - SP</p>
+                            </div>
+                            <div class="panel-footer">
+                                <button class="btn btn-warning btn-sm marcar-principal" data-id="3">
+                                    <i class="fa fa-star"></i> Marcar Principal
+                                </button>
+                                <button class="btn btn-danger btn-sm excluir-endereco" data-id="3">
+                                    <i class="fa fa-trash"></i> Excluir
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="text-right">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script>
     const token = "<?= $_SESSION['token'] ?>";
     if(token) {

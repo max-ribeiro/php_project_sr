@@ -300,6 +300,7 @@ function processarResultados(data) {
         var $tr = $('<tr />');
         var $td = $('<td />');
 
+        const buttonsDiv = $('<div style="display:flex; gap:8px" class="buttons-div"></div>');
         var $btnEditar = $('<button type="button" />');
         $btnEditar.addClass('btn btn-warning btn-xs cidadao-edit-btn');
         $btnEditar.html('<i class="fa fa-edit fa-fw"></i>');
@@ -320,11 +321,28 @@ function processarResultados(data) {
             $modal.find('#btn-remove-cidadao').data('id_cidadao', id_cidadao);
         });
 
+        const $btnAddress = $('<button type="button" />');
+        $btnAddress.addClass('btn btn-primary btn-xs address-edit-btn');
+        $btnAddress.html('<i class="fa fa-home fa-fw"></i>');
+        $btnAddress.data('item', $item); // armazena no botão
+
+        $btnAddress.click(function () {
+            const item = $(this).data('item');
+            const $modal = $('#modal-enderecos');
+            $modal.find('#enderecos-title').html(`Endereços de ${item.nome}`);
+            $modal.find('#id_cidadao').val(item.id_cidadao);
+
+            $modal.modal({backdrop: 'static'});
+
+        });
+
+        buttonsDiv.append([$btnEditar, $btnAddress]);
+
         $tr.append($td.clone().html($item.nome));
         $tr.append($td.clone().html($item.cpf));
         $tr.append($td.clone().html($item.telefone));
         $tr.append($td.clone().html($item.nome_status));
-        $tr.append($td.clone().append([$btnEditar]));
+        $tr.append($td.clone().append([buttonsDiv]));
 
         $('#resultados .itens tbody').append($tr);
     }
