@@ -4,6 +4,8 @@ docker compose up -d
 docker exec -it php74
 composer install
 ```
+sera necessário criar a base e o usuário do SQL Server;
+Scripts na pasta _UTIL/baseDbCreation.sql
 
 # API
 ## Autenticação:
