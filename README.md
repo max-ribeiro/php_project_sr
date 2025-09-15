@@ -1,7 +1,7 @@
 # Executando o projeto
 ```bash
 docker compose up -d
-docker exec -it php74
+docker exec -it php74 bash
 composer install
 ```
 sera necessário criar a base e o usuário do SQL Server;
